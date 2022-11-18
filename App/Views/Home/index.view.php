@@ -1,29 +1,37 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col mt-5">
-            <div class="text-center">
-                <h2>Vaííčko MVC FW</h2>
-                <img src="public/images/vaiicko_logo.png">
-                <p>
-                    Gratulujeme vám, úspešne sa vám podarilo nainštalovať a spustiť framework <strong>Vaííčko</strong> <?= \App\Config\Configuration::FW_VERSION ?>!<br>
-                    Dúfame, že sa Vám pomocou totho frameworku vytvoríte nejakú skvelú aplikáciu.<br>
-                </p>
-                <p>
-                    Tento jednoduchý framework bol vytvorený pre lepšie pochopenie architektúry MVC.<br>
-                    Je určený pre študentov predmetu <em>vývoj aplikcií pre internet a intranet</em>, ale nielen im.
-                </p>
-            </div>
-        </div>
+<div class="mainImage">
+    <img src="public/images/rd2.PNG" class="w-100" alt="rd">
+</div>
+
+<div class="row align-items-center p-4">
+    <div class="col-sm-5">
+        <img src="public/images/liftoff.png" alt="uvodObr" class="uvodObr img-fluid">
     </div>
-    <div class="row mt-3">
-        <div class="col text-center">
-            <h4>Autori</h4>
-            <div>
-                <a href="mailto:Patrik.Hrkut@fri.uniza.sk">Ing. Patrik Hrkút, PhD.</a><br>
-                <a href="mailto:Michal.Duracik@fri.uniza.sk">Ing. Michal Ďuračík, PhD.</a><br>
-                <a href="mailto:Matej.Mesko@fri.uniza.sk">Ing. Matej Meško, PhD.</a><br><br>
-                &copy; 2020-2022 Fakulta riadenia a informatiky, Katedra softvérových technológií
-            </div>
-        </div>
+    <div class="col-sm-7">
+        <h3 class="text-white">ČO JE TO "DRONE RACING"?</h3>
+        <h4 class="card-text text-white lead">Drone racing je šport, pri ktorom sa lieta so závodnými kvadrokoptérami
+            vybavenými kamerami, ktoré sú ovládané z pohľadu prvej osoby.</h4>
+        <h4 class="card-text text-white lead">Pri takomto závodení sa lieta cez rôzne umiestnené bránky alebo rôzne iné
+            objekty. Ako pri každých iných závodoch vyhráva ten, kto dorazí do cieľa ako prvý.</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="card col-sm-4 p-0 border-0 bg-gray rounded-0">
+        <a href="https://oscarliang.com/fpv-drone-guide/" class="p-0 hover-expand" target="_blank">
+            <img src="public/images/navody.jpg" class="img-fluid" alt="navody"></a>
+        <div class="p-3 text-center text-white lead fs-c-18px">1. Všeobecné návody k závodným FPV koptéram pre
+            začiatočníkov od OscarLiang s názvom The Complete Beginner Guide</div>
+    </div>
+    <div class="card col-sm-4 p-0 border-0 bg-gray rounded-0">
+        <a href="https://www.multigp.com" class="p-0 hover-expand" target="_blank">
+            <img src="public/images/zavody.jpg " class="img-fluid" alt="zavody"></a>
+        <div class="p-3 text-center text-white lead fs-c-18px">2. Medzinárodná organizácia organizujúca závody so
+            závodnými FPV kvadrokoptérami s vyše 30 000 registrovanými účastníkmi</div>
+    </div>
+    <div class="card col-sm-4 p-0 border-0 bg-gray rounded-0">
+        <a href="https://www.liftoff-game.com" class="p-0 hover-expand" target="_blank">
+            <img src="public/images/simulator.jpg" class="img-fluid" alt="simulator"></a>
+        <div class="p-3 text-center text-white lead fs-c-18px">3. Jeden z najznámejších simulátorov závodných a
+            freestyle FPV kvadrokoptér s názvom Liftoff</div>
     </div>
 </div>

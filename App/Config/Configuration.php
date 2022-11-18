@@ -11,7 +11,7 @@ use App\Auth\DummyAuthenticator;
  */
 class Configuration
 {
-    public const APP_NAME = 'Vaííčko MVC FW';
+    public const APP_NAME = 'Drone racing';
     public const FW_VERSION = '2.0';
 
     public const DB_HOST = 'localhost';  // change to db, if docker you use docker

@@ -1,13 +1,18 @@
 <?php /** @var Array $data */ ?>
-<div class="row">
-    <div class="col">
-        <h3>Fakulta riadenia a informatiky</h3>
-        <strong>Adresa</strong>: Univerzitná 8215/1, 010 26 Žilina<br>
-        <strong>Tel. číslo</strong>: +421/41 513 4121<br>
-
-        <strong>GPS</strong>: 49°12'6,4"N 18°45'42,6"E
+<div class="card m-3 bg-gray p-4">
+    <div class="row g-0 text-center align-items-center">
+        <div class="col-md-4">
+            <div class="card-body">
+                <h4 class="card-title text-white">Kontakt</h4>
+                <p class="card-text text-white lead">Meno: Martin Kitko<br>Adresa: Diviaky nad Nitricou 972 25<br>
+                    T. číslo: +421 905 586 179<br>E-mail: kitko@stud.uniza.sk</p>
+            </div>
+        </div>
+        <div class="col-md-8 p-4">
+            <img src="public/images/mapa.png" class="img-fluid" alt="map">
+        </div>
     </div>
-</div>
+</div><br>
 <div class="row mt-3">
     <div class="col">
         <iframe width="100%" height="300"

@@ -16,19 +16,34 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="public/css/styl.css">
     <script src="public/js/script.js"></script>
+    <link rel="icon" href="public/images/icon.png">
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-light">
+<nav class="navbar sticky-top navbar-expand-sm bg-gray navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="?c=home">
-            <img src="public/images/vaiicko_logo.png" title="<?= \App\Config\Configuration::APP_NAME ?>"
+            <img src="public/images/logo.png" alt="Avatar Logo" class="rounded-pill logo-width"
                  title="<?= \App\Config\Configuration::APP_NAME ?>">
         </a>
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="?c=home&a=contact">Kontakt</a>
-            </li>
-        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=home">DOMOV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=home&a=gallery">GALÉRIA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=home&a=info">INFO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=home&a=contact">KONTAKT</a>
+                </li>
+            </ul>
+        </div>
         <?php if ($auth->isLogged()) { ?>
             <span class="navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
             <ul class="navbar-nav ms-auto">
@@ -45,10 +60,15 @@
         <?php } ?>
     </div>
 </nav>
-<div class="container-fluid mt-3">
+
+<div class="container-fluid mt-3 p-0 m-0">
     <div class="web-content">
         <?= $contentHTML ?>
     </div>
+</div>
+
+<div class="text-center text-gray">
+    <p><br>Copyright © 2022 Martin Kitko</p>
 </div>
 </body>
 </html>
