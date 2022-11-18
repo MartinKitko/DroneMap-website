@@ -12,15 +12,11 @@
             <img src="public/images/mapa.png" class="img-fluid" alt="map">
         </div>
     </div>
-</div><br>
-<div class="row mt-3">
-    <div class="col">
-        <iframe width="100%" height="300"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=18.747396469116214%2C49.193792384417996%2C18.776578903198246%2C49.210336337994846&amp;layer=mapnik&amp;marker=49.202065053033984%2C18.761987686157227"></iframe>
-    </div>
 </div>
+
 <div class="row mt-3">
-    <div class="col">
-        <a href="?c=home">Späť na hlavnú stránku</a>
+    <div class="col w-100">
+        <iframe width="100%" height="600" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=48.76517084981343,%2018.494904041290287+(My%20Business%20Name)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+        </iframe>
     </div>
 </div>
