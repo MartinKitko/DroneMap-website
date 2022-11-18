@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="public/css/styl.css">
     <script src="public/js/script.js"></script>
     <link rel="icon" href="public/images/icon.png">
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet"/>
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-sm bg-gray navbar-dark">
@@ -32,6 +34,9 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="?c=home">DOMOV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=home&a=map">MAPA</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?c=home&a=gallery">GALÉRIA</a>
