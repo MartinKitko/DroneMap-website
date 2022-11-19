@@ -36,7 +36,7 @@
                     <a class="nav-link" href="?c=home">DOMOV</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?c=home&a=map">MAPA</a>
+                    <a class="nav-link" href="?c=markers">MAPA</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?c=home&a=gallery">GALÉRIA</a>
