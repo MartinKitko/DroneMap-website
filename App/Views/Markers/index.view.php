@@ -1,8 +1,14 @@
 <?php
+
+use App\Core\IAuthenticator;
 use App\Models\Marker;
 /** @var Marker[] $data */
-?>
+/** @var IAuthenticator $auth */
 
+?>
+<div class="row">
+    <a href="?c=markers&a=create" class="btn btn-success">Pridať nový bod</a>
+</div>
 <div id="map">
     <script>
         let $defaultLat = 48.765172;
@@ -14,6 +20,7 @@ use App\Models\Marker;
         <?php foreach ($data as $marker) { ?>
             geoJson[i] = {
                 'type': 'Feature',
+                'id': '<?= $marker->getId(); ?>',
                 'geometry': {
                     'type': 'Point',
                     'coordinates': ['<?= $marker->getLong(); ?>', '<?= $marker->getLat(); ?>']
@@ -35,6 +42,9 @@ use App\Models\Marker;
             zoom: $defaultZoom
         });
 
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.addControl(new mapboxgl.NavigationControl());
+
         for (const feature of geoJson) {
             const element = document.createElement('div');
             element.className = 'marker';
@@ -44,7 +54,9 @@ use App\Models\Marker;
                 .setPopup(
                     new mapboxgl.Popup({ offset: 25 })
                         .setHTML(
-                            `<h4>${feature.properties.title}</h4><p>${feature.properties.description}</p>`
+                            `<h4>${feature.properties.title}</h4><p>${feature.properties.description}</p>`+
+                            `<a href="?c=markers&a=edit&id=${feature.id}" class="btn btn-warning m-1">Upraviť</a>` +
+                            `<a href="?c=markers&a=delete&id=${feature.id}" class="btn btn-danger m-1">Zmazať</a>`
                         )
                 )
                 .addTo(map);
