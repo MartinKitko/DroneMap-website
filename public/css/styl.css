@@ -23,9 +23,16 @@ body{
     font-size: 17px;
 }
 
+.hover-expand:hover {
+    transform: scale(1.01);
+    transition-duration: 350ms;
+}
+
+/* map and markers */
 #map {
+    display: block;
     position: absolute;
-    top: 0;
+    top: 115px;
     bottom: 0;
     width: 100%;
 }
@@ -38,17 +45,16 @@ body{
     height: 40px;
     cursor: pointer;
 }
+
 .mapboxgl-popup {
-    max-width: 250px;
-}
-.mapboxgl-popup-content {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
+    min-width: 200px;
+    max-width: 350px;
 }
 
-.hover-expand:hover {
-    transform: scale(1.01);
-    transition-duration: 350ms;
+.mapboxgl-popup-content {
+    text-align: center;
+    word-wrap: break-word;
+    font-family: 'Open Sans', sans-serif;
 }
 
 /* gallery images */
