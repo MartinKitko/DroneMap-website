@@ -44,6 +44,7 @@ use App\Models\Marker;
 
         map.addControl(new mapboxgl.FullscreenControl());
         map.addControl(new mapboxgl.NavigationControl());
+        map.doubleClickZoom.disable();
 
         for (const feature of geoJson) {
             const element = document.createElement('div');
@@ -61,5 +62,15 @@ use App\Models\Marker;
                 )
                 .addTo(map);
         }
+        map.on('style.load', function() {
+            map.on('dblclick', function(e) {
+                let lat = e.lngLat.lat;
+                let lng = e.lngLat.lng;
+                new mapboxgl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML('Súradnice miesta: <br/>' + lat + '<br>' + lng)
+                    .addTo(map);
+            });
+        });
     </script>
 </div>
