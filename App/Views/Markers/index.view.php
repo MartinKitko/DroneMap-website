@@ -1,4 +1,12 @@
-<?php /** @var Array $data */ ?>
+<?php
+use App\Models\Marker;
+/** @var Marker[] $data */
+
+foreach ($data as $marker) {
+    ?> <p><?php echo $marker->getTitle() ?></p>
+<?php }
+?>
+
 <div id="map">
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGluLWtpdCIsImEiOiJjbGFta256ZnQwMHdwM3Zudmxyanc3OGRxIn0.frnxdqab00eiqutXB60fKQ';
@@ -52,6 +60,23 @@
                 )
                 .addTo(map);
         }
+
+        <?php foreach ($data as $marker) { ?>
+        const element = document.createElement('div');
+        element.className = 'marker';
+        let coordinates = ["<?php echo $marker->getLong(); ?>", "<?php echo $marker->getLat(); ?>"];
+
+        new mapboxgl.Marker(element)
+            .setLngLat(coordinates)
+            .setPopup(
+                new mapboxgl.Popup({ offset: 25 })
+                    .setHTML(
+                        `<h4>${"<?php echo $marker->getTitle(); ?>"}</h4><p>${"<?php echo $marker->getDescription(); ?>"}</p>`
+                    )
+            )
+            .addTo(map);
+        </script><script>
+        <?php } ?>
 
         //L.marker([18.494912, 48.785172]).addTo(map);
     </script>
