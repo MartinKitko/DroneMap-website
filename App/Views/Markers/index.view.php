@@ -1,52 +1,41 @@
 <?php
 use App\Models\Marker;
 /** @var Marker[] $data */
-
-foreach ($data as $marker) {
-    ?> <p><?php echo $marker->getTitle() ?></p>
-<?php }
 ?>
 
 <div id="map">
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGluLWtpdCIsImEiOiJjbGFta256ZnQwMHdwM3Zudmxyanc3OGRxIn0.frnxdqab00eiqutXB60fKQ';
+        let $defaultLat = 48.765172;
+        let $defaultLong = 18.494912;
+        let $defaultZoom = 13;
 
-        const geojson = {
-            'type': 'FeatureCollection',
-            'features': [
-                {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [18.494912, 48.775172]
-                    },
-                    'properties': {
-                        'title': 'Prvý test',
-                        'description': 'Prvý testovací marker'
-                    }
+        let geoJson = [];
+        let i = 0;
+        <?php foreach ($data as $marker) { ?>
+            geoJson[i] = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': ['<?= $marker->getLong(); ?>', '<?= $marker->getLat(); ?>']
                 },
-                {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': [18.504912, 48.765172]
-                    },
-                    'properties': {
-                        'title': 'Druhý test',
-                        'description': 'Druhý testovací marker'
-                    }
+                'properties': {
+                    'title': '<?= $marker->getTitle(); ?>',
+                    'description': '<?= $marker->getDescription(); ?>'
                 }
-            ]
-        };
+            }
+            i++;
+        <?php } ?>
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGluLWtpdCIsImEiOiJjbGFta256ZnQwMHdwM3Zudmxyanc3OGRxIn0.frnxdqab00eiqutXB60fKQ';
 
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/martin-kit/clamklbrs000714rckzalpmix',
-            center: [18.494912, 48.765172],
-            zoom: 13.5
+            center: [$defaultLong, $defaultLat],
+            zoom: $defaultZoom
         });
 
-        for (const feature of geojson.features) {
+        for (const feature of geoJson) {
             const element = document.createElement('div');
             element.className = 'marker';
 
@@ -60,24 +49,5 @@ foreach ($data as $marker) {
                 )
                 .addTo(map);
         }
-
-        <?php foreach ($data as $marker) { ?>
-        const element = document.createElement('div');
-        element.className = 'marker';
-        let coordinates = ["<?php echo $marker->getLong(); ?>", "<?php echo $marker->getLat(); ?>"];
-
-        new mapboxgl.Marker(element)
-            .setLngLat(coordinates)
-            .setPopup(
-                new mapboxgl.Popup({ offset: 25 })
-                    .setHTML(
-                        `<h4>${"<?php echo $marker->getTitle(); ?>"}</h4><p>${"<?php echo $marker->getDescription(); ?>"}</p>`
-                    )
-            )
-            .addTo(map);
-        </script><script>
-        <?php } ?>
-
-        //L.marker([18.494912, 48.785172]).addTo(map);
     </script>
 </div>
