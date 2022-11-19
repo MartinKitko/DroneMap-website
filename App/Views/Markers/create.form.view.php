@@ -10,7 +10,7 @@ $marker = $data['marker'];
     <div class="row>">
         <div class="col text-white">
             <h3 >Pridanie/úprava bodu</h3>
-            <form action="?c=markers&a=store" method="post">
+            <form action="?c=markers&a=store" method="post" onsubmit="return checkForm()">
                 <?php if ($marker->getId()) { ?>
                     <input type="hidden" value="<?= $marker->getId() ?>" name="id">
                 <?php } ?>
@@ -27,11 +27,11 @@ $marker = $data['marker'];
                 </div>
                 <div class="mb-3">
                     <label for="lat" class="form-label">Zemepisná šírka (latitude):</label>
-                    <input required type="text" class="form-control" id="lat" name="lat" value="<?= $marker->getLat() ?>">
+                    <input required type="number" step="any" min="-90" max="90" class="form-control" id="lat" name="lat" value="<?= $marker->getLat() ?>">
                 </div>
                 <div class="mb-3">
                     <label for="long" class="form-label">Zemepisná dĺžka (longitude):</label>
-                    <input required type="text" class="form-control" id="long" name="long" value="<?= $marker->getLong() ?>">
+                    <input required type="number" step="any" min="-180" max="180" class="form-control" id="long" name="long" value="<?= $marker->getLong() ?>">
                 </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>
