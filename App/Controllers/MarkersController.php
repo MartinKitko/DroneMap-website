@@ -9,6 +9,18 @@ use App\Models\Marker;
 class MarkersController extends AControllerBase
 {
     /**
+     * @param $action
+     * @return bool
+     */
+    public function authorize($action)
+    {
+        return match ($action) {
+            "create", "store", "edit", "delete" => $this->app->getAuth()->isLogged(),
+            default => true,
+        };
+    }
+
+    /**
      * @throws \Exception
      */
     public function index(): Response
