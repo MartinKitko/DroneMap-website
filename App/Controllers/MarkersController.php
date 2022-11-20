@@ -8,18 +8,22 @@ use App\Models\Marker;
 
 class MarkersController extends AControllerBase
 {
+    /**
+     * @throws \Exception
+     */
     public function index(): Response
     {
         $markers = Marker::getAll();
         return $this->html($markers);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function delete()
     {
         $marker = Marker::getOne($this->request()->getValue('id'));
-        if ($marker) {
-            $marker->delete();
-        }
+        $marker?->delete();
 
         return $this->redirect('?c=markers');
     }
