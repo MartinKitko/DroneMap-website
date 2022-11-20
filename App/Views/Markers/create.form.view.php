@@ -10,7 +10,7 @@ $marker = $data['marker'];
     <div class="row>">
         <div class="col text-white">
             <h3 >Pridanie/úprava bodu</h3>
-            <form action="?c=markers&a=store" method="post" onsubmit="return checkForm()">
+            <form action="?c=markers&a=store" method="post">
                 <?php if ($marker->getId()) { ?>
                     <input type="hidden" value="<?= $marker->getId() ?>" name="id">
                 <?php } ?>
