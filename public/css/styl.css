@@ -32,9 +32,16 @@ body{
 #map {
     display: block;
     position: absolute;
-    top: 115px;
     bottom: 0;
     width: 100%;
+}
+
+.top60 {
+    top: 60px;
+}
+
+.top115 {
+    top: 115px;
 }
 
 .marker {
