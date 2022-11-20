@@ -22,7 +22,7 @@ $marker = $data['marker'];
                     <label for="description" class="form-label">Popis:</label>
                     <textarea maxlength="450" class="form-control" id="description" name="description" style="height:100px"
                               onkeyup="countChars('description','charcount');" onkeydown="countChars('description','charcount');"
-                              onmouseout="countChars('description','charcount');" onload="countChars('description','charcount');"><?= $marker->getDescription() ?></textarea>
+                              onmouseout="countChars('description','charcount');"><?= $marker->getDescription() ?></textarea>
                     <span id="charcount">0</span>/450 znakov
                 </div>
                 <div class="mb-3">
@@ -51,3 +51,8 @@ $marker = $data['marker'];
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    countChars('description','charcount');
+    setDefaultOption('<?= $marker->getColor() ?>');
+</script>
