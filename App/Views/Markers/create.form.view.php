@@ -5,11 +5,11 @@ use App\Models\Marker;
 /** @var Marker $marker */
 $marker = $data['marker'];
 ?>
-<script src="public/js/script.js"></script>
+
 <div class="container">
     <div class="row>">
         <div class="col text-white">
-            <h3 >Pridanie/úprava bodu</h3>
+            <h3>Pridanie/úprava bodu</h3>
             <form action="?c=markers&a=store" method="post">
                 <?php if ($marker->getId()) { ?>
                     <input type="hidden" value="<?= $marker->getId() ?>" name="id">
