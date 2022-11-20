@@ -75,7 +75,7 @@ class MarkersController extends AControllerBase
         $marker = ($id ? Marker::getOne($id) : new Marker());
 
         $marker->setTitle($this->request()->getValue("title"));
-        $marker->setDescription($this->request()->getValue("description"));
+        $marker->setDescription(trim(preg_replace('/\s\s+/', ' ', $this->request()->getValue("description"))));
         $marker->setLat($this->request()->getValue("lat"));
         $marker->setLong($this->request()->getValue("long"));
         $marker->setColor($this->request()->getValue("m_color"));
