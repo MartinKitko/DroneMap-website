@@ -14,9 +14,9 @@ if ($auth->isLogged()) { ?>
 <div class="top60" id="map">
     <?php } ?>
     <script>
-        let $defaultLat = 48.765172;
-        let $defaultLong = 18.494912;
-        let $defaultZoom = 13;
+        let $defaultLat = 48.7562;
+        let $defaultLong = 18.5586;
+        let $defaultZoom = 11.5;
 
         let geoJson = [];
         let i = 0;
