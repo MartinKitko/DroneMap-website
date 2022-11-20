@@ -30,16 +30,12 @@
 </div>
 
 <div class="pics">
-    <a href="public/images/p1.png" class="card-s" target="_blank">
-        <img src="public/images/p1.png" alt="p1">
-    </a>
-    <a href="public/images/p4.jpg" class="card-s" target="_blank">
-        <img src="public/images/p4.jpg" alt="p4">
-    </a>
-    <a href="public/images/p2.jpg" class="card-s" target="_blank">
-        <img src="public/images/p2.jpg" alt="p2">
-    </a>
-    <a href="public/images/p3.jpg" class="card-s" target="_blank">
-        <img src="public/images/p3.jpg" alt="p3">
-    </a>
+    <a class="card-s"><img src="public/images/p1.png" alt="p1"></a>
+    <a class="card-s"><img src="public/images/p4.jpg" alt="p4"></a>
+    <a class="card-s"><img src="public/images/p2.jpg" alt="p2"></a>
+    <a class="card-s"><img src="public/images/p3.jpg" alt="p3"></a>
 </div>
+
+<script>
+    lightbox()
+</script>
