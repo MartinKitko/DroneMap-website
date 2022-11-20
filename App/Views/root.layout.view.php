@@ -18,7 +18,7 @@
     <script src="public/js/script.js"></script>
     <link rel="icon" href="public/images/icon.png">
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
-    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet"/>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-sm bg-gray navbar-dark">
@@ -49,8 +49,10 @@
                 </li>
             </ul>
             <?php if ($auth->isLogged()) { ?>
-                <ul class="navbar-nav ms-auto">
-                    <span class="navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="nav-link navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?c=auth&a=logout">Odhlásenie</a>
                     </li>
@@ -63,7 +65,6 @@
                 </ul>
             <?php } ?>
         </div>
-
     </div>
 </nav>
 
