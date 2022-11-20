@@ -30,7 +30,8 @@ if ($auth->isLogged()) { ?>
                 },
                 'properties': {
                     'title': '<?= $marker->getTitle(); ?>',
-                    'description': '<?= $marker->getDescription(); ?>'
+                    'description': '<?= $marker->getDescription(); ?>',
+                    'color': '<?= $marker->getColor(); ?>'
                 }
             }
             i++;
@@ -52,6 +53,7 @@ if ($auth->isLogged()) { ?>
         for (const feature of geoJson) {
             const element = document.createElement('div');
             element.className = 'marker';
+            element.style.backgroundImage = `url(public/images/markers/marker-${feature.properties.color}.png)`;
 
             new mapboxgl.Marker(element)
                 .setLngLat(feature.geometry.coordinates)

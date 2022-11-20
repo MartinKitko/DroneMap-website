@@ -26,6 +26,19 @@ $marker = $data['marker'];
                     <span id="charcount">0</span>/450 znakov
                 </div>
                 <div class="mb-3">
+                    <label for="m_color" class="form-label">Farba:</label>
+                    <select name="m_color" id="m_color">
+                        <option value="red">Červená</option>
+                        <option value="pink">Ružová</option>
+                        <option value="orange">Oranžová</option>
+                        <option value="green">Zelená</option>
+                        <option value="darkGreen">Tmavo zelená</option>
+                        <option value="blue">Modrá</option>
+                        <option value="darkBlue">Tmavo modrá</option>
+                        <option value="black">Čierna</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label for="lat" class="form-label">Zemepisná šírka (latitude):</label>
                     <input required type="number" step="any" min="-90" max="90" class="form-control" id="lat" name="lat" value="<?= $marker->getLat() ?>">
                 </div>

@@ -45,7 +45,7 @@ body{
 }
 
 .marker {
-    background-image: url("../images/marker-red.png");
+
     background-size: cover;
     border-radius: 50%;
     width: 40px;
