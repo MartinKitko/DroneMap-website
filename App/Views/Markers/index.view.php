@@ -5,11 +5,14 @@ use App\Models\Marker;
 /** @var Marker[] $data */
 /** @var IAuthenticator $auth */
 
-?>
-<div class="row">
-    <a href="?c=markers&a=create" class="btn btn-success">Pridať nový bod</a>
-</div>
-<div id="map">
+if ($auth->isLogged()) { ?>
+    <div class="row">
+        <a href="?c=markers&a=create" class="btn btn-success">Pridať nový bod</a>
+    </div>
+    <div class="top115" id="map">
+<?php } else { ?>
+<div class="top60" id="map">
+    <?php } ?>
     <script>
         let $defaultLat = 48.765172;
         let $defaultLong = 18.494912;
@@ -55,9 +58,11 @@ use App\Models\Marker;
                 .setPopup(
                     new mapboxgl.Popup({ offset: 25 })
                         .setHTML(
-                            `<h4>${feature.properties.title}</h4><p>${feature.properties.description}</p>`+
-                            `<a href="?c=markers&a=edit&id=${feature.id}" class="btn btn-warning m-1">Upraviť</a>` +
-                            `<a href="?c=markers&a=delete&id=${feature.id}" class="btn btn-danger m-1">Zmazať</a>`
+                            `<h4>${feature.properties.title}</h4><p>${feature.properties.description}</p>`
+                            <?php if ($auth->isLogged()) { ?> +
+                                `<a href="?c=markers&a=edit&id=${feature.id}" class="btn btn-warning m-1">Upraviť</a>` +
+                                `<a href="?c=markers&a=delete&id=${feature.id}" class="btn btn-danger m-1">Zmazať</a>`
+                            <?php } ?>
                         )
                 )
                 .addTo(map);
