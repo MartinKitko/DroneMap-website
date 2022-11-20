@@ -11,6 +11,23 @@ class Marker extends Model
     protected ?string $description = "";
     protected ?float $lat = 0.0;
     protected ?float $long = 0.0;
+    protected ?string $m_color = "";
+
+    /**
+     * @return string|null
+     */
+    public function getColor(): ?string
+    {
+        return $this->m_color;
+    }
+
+    /**
+     * @param string|null $color
+     */
+    public function setColor(?string $color): void
+    {
+        $this->m_color = $color;
+    }
 
     /**
      * @return int|null
