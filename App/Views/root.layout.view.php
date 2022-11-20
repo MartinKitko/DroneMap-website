@@ -31,7 +31,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav mx-auto">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="?c=home">DOMOV</a>
                 </li>
@@ -48,21 +48,22 @@
                     <a class="nav-link" href="?c=home&a=contact">KONTAKT</a>
                 </li>
             </ul>
+            <?php if ($auth->isLogged()) { ?>
+                <ul class="navbar-nav ms-auto">
+                    <span class="navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?c=auth&a=logout">Odhlásenie</a>
+                    </li>
+                </ul>
+            <?php } else { ?>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Prihlásenie</a>
+                    </li>
+                </ul>
+            <?php } ?>
         </div>
-        <?php if ($auth->isLogged()) { ?>
-            <span class="navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="?c=auth&a=logout">Odhlásenie</a>
-                </li>
-            </ul>
-        <?php } else { ?>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Prihlásenie</a>
-                </li>
-            </ul>
-        <?php } ?>
+
     </div>
 </nav>
 
