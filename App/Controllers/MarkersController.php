@@ -78,6 +78,7 @@ class MarkersController extends AControllerBase
         $marker->setDescription($this->request()->getValue("description"));
         $marker->setLat($this->request()->getValue("lat"));
         $marker->setLong($this->request()->getValue("long"));
+        $marker->setColor($this->request()->getValue("m_color"));
         $marker->save();
 
         return $this->redirect("?c=markers");
