@@ -55,7 +55,7 @@ if ($auth->isLogged()) { ?>
             element.className = 'marker';
             element.style.backgroundImage = `url(public/images/markers/marker-${feature.properties.color}.png)`;
 
-            new mapboxgl.Marker(element)
+            new mapboxgl.Marker(element, {anchor: 'bottom'})
                 .setLngLat(feature.geometry.coordinates)
                 .setPopup(
                     new mapboxgl.Popup({ offset: 25 })
