@@ -39,6 +39,9 @@
                     <a class="nav-link" href="?c=markers">MAPA</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="?c=markers&a=list">ZOZNAM</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="?c=home&a=gallery">GALÉRIA</a>
                 </li>
                 <li class="nav-item">

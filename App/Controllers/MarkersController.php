@@ -32,6 +32,15 @@ class MarkersController extends AControllerBase
     /**
      * @throws \Exception
      */
+    public function list(): Response
+    {
+        $markers = Marker::getAll();
+        return $this->html($markers);
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function delete()
     {
         $marker = Marker::getOne($this->request()->getValue('id'));
