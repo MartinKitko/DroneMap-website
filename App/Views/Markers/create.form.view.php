@@ -46,6 +46,10 @@ $marker = $data['marker'];
                     <label for="long" class="form-label">Zemepisná dĺžka (longitude):</label>
                     <input required type="number" step="any" min="-180" max="180" class="form-control" id="long" name="long" value="<?= $marker->getLong() ?>">
                 </div>
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Obrázok:</label>
+                    <input class="form-control" type="file" id="photo" name="photo">
+                </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>
         </div>

@@ -12,6 +12,7 @@ class Marker extends Model
     protected ?float $lat = 0.0;
     protected ?float $long = 0.0;
     protected ?string $m_color = "";
+    protected ?string $photo = null;
 
     /**
      * @return string|null
@@ -109,5 +110,30 @@ class Marker extends Model
         $this->long = $long;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
 
+    /**
+     * @param string|null $photo
+     */
+    public function setPhoto(?string $photo): void
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        Model::getConnection()->beginTransaction();
+        parent::delete();
+        Model::getConnection()->commit();
+    }
 }

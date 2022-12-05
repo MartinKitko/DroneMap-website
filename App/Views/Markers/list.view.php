@@ -15,9 +15,11 @@ use App\Models\Marker;
     <?php } ?>
     <div class="row">
         <?php foreach ($data as $marker) { ?>
-            <div>
-                <div class="card my-3">
-
+            <div class="col-xl-3 col-md-4 col-sm-6 my-3">
+                <div class="card h-100">
+                    <?php if ($marker->getPhoto()) { ?>
+                        <img src="<?= $marker->getPhoto() ?>" class="card-img-top" alt="...">
+                    <?php } ?>
                     <div class="card-body">
                         <h5 class="card-title">
                             <?= $marker->getTitle() ?>
@@ -25,11 +27,13 @@ use App\Models\Marker;
                         <p class="card-text">
                             <?= $marker->getDescription() ?>
                         </p>
-                        <?php if ($auth->isLogged()) { ?>
+                    </div>
+                    <?php if ($auth->isLogged()) { ?>
+                        <div class="card-footer">
                             <a href="?c=markers&a=edit&id=<?= $marker->getId() ?>" class="btn btn-warning">Upraviť</a>
                             <a href="?c=markers&a=delete&id=<?= $marker->getId() ?>" class="btn btn-danger">Zmazať</a>
-                        <?php } ?>
-                    </div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         <?php } ?>

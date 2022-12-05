@@ -39,11 +39,15 @@ class MarkersController extends AControllerBase
     }
 
     /**
+     * @return \App\Core\Responses\RedirectResponse
      * @throws \Exception
      */
     public function delete()
     {
         $marker = Marker::getOne($this->request()->getValue('id'));
+        if ($marker->getPhoto()) {
+            unlink($marker->getPhoto());
+        }
         $marker?->delete();
 
         return $this->redirect('?c=markers');
@@ -82,14 +86,38 @@ class MarkersController extends AControllerBase
     {
         $id = $this->request()->getValue('id');
         $marker = ($id ? Marker::getOne($id) : new Marker());
+        $oldPhoto = $marker->getPhoto();
 
         $marker->setTitle($this->request()->getValue("title"));
         $marker->setDescription(trim(preg_replace('/\s\s+/', ' ', $this->request()->getValue("description"))));
         $marker->setLat($this->request()->getValue("lat"));
         $marker->setLong($this->request()->getValue("long"));
         $marker->setColor($this->request()->getValue("m_color"));
+        $marker->setPhoto($this->processUploadedFile($marker));
+        if (!is_null($oldPhoto) && is_null($marker->getPhoto())) {
+            unlink($oldPhoto);
+        }
         $marker->save();
 
         return $this->redirect("?c=markers");
+    }
+
+    /**
+     * @param $marker
+     * @return string|null
+     */
+    private function processUploadedFile(Marker $marker)
+    {
+        $photo = $this->request()->getFiles()['photo'];
+        if (!is_null($photo) && $photo['error'] == UPLOAD_ERR_OK) {
+            $targetFile = "public" . DIRECTORY_SEPARATOR . "photos" . DIRECTORY_SEPARATOR . time() . "_" . $photo['name'];
+            if (move_uploaded_file($photo["tmp_name"], $targetFile)) {
+                if ($marker->getId() && $marker->getPhoto()) {
+                    unlink($marker->getPhoto());
+                }
+                return $targetFile;
+            }
+        }
+        return null;
     }
 }
