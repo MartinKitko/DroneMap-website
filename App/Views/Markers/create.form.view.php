@@ -4,6 +4,16 @@ use App\Models\Marker;
 
 /** @var Marker $marker */
 $marker = $data['marker'];
+
+if (isset($_SESSION['errorOccurred'])) {
+    $errorOccurred = $_SESSION['errorOccurred'];
+    $errorMessage = $_SESSION['errorMessage'];
+    unset($_SESSION['errorOccurred']);
+    unset($_SESSION['errorMessage']);
+} else {
+    $errorOccurred = false;
+    $errorMessage = "";
+}
 ?>
 
 <div class="container">
@@ -52,6 +62,7 @@ $marker = $data['marker'];
                 </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>
+            <div id="error-message" class="alert alert-danger" style="display:none;"></div>
         </div>
     </div>
 </div>
@@ -59,4 +70,5 @@ $marker = $data['marker'];
 <script type="text/javascript">
     countChars('description','charcount');
     setDefaultOption('<?= $marker->getColor() ?>');
+    checkForErrors(<?= $errorOccurred ?>, '<?= $errorMessage ?>');
 </script>

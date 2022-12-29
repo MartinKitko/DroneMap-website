@@ -9,6 +9,15 @@ function setDefaultOption(option) {
     $('#m_color').val(option)
 }
 
+function checkForErrors(error, errorMessage) {
+    if (error) {
+        document.getElementById("error-message").innerHTML = errorMessage;
+        document.getElementById("error-message").style.display = "block";
+    } else {
+        document.getElementById("error-message").style.display = "none";
+    }
+}
+
 function lightbox() {
     const lightbox = document.createElement('div')
     lightbox.id = 'lightbox'

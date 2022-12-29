@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Marker;
+use Exception;
 
 class MarkersController extends AControllerBase
 {
@@ -84,22 +85,58 @@ class MarkersController extends AControllerBase
      */
     public function store()
     {
-        $id = $this->request()->getValue('id');
-        $marker = ($id ? Marker::getOne($id) : new Marker());
-        $oldPhoto = $marker->getPhoto();
+        try {
+            $lat = $this->request()->getValue("lat");
+            if (!is_numeric($lat)) {
+                throw new Exception("Chyba: lat musi byt cislo");
+            }
+            if ($lat < -90 || $lat > 90) {
+                throw new Exception("Chyba: lat musi byt cislo od -90 do 90 ");
+            }
+            $long = $this->request()->getValue("long");
+            if (!is_numeric($long)) {
+                throw new Exception("Chyba: long musi byt cislo");
+            }
+            if ($long < -180 || $long > 180) {
+                throw new Exception("Chyba: long musi byt cislo od -180 do 180 ");
+            }
+            $title = $this->request()->getValue("title");
+            if (!is_string($title)) {
+                throw new Exception("Chyba: nazov bodu musi byt string");
+            }
+            if (mb_strlen($title, "UTF-8") > 50) {
+                throw new Exception("Chyba: nazov bodu moze mat maximalne 50 znakov");
+            }
+            $description = $this->request()->getValue("description");
+            if (!is_string($description)) {
+                throw new Exception("Chyba: popis musi byt string");
+            }
+            if (mb_strlen($description, "UTF-8") > 50) {
+                throw new Exception("Chyba: popis bodu moze mat maximalne 450 znakov");
+            }
+            $color = $this->request()->getValue("m_color");
 
-        $marker->setTitle($this->request()->getValue("title"));
-        $marker->setDescription(trim(preg_replace('/\s\s+/', ' ', $this->request()->getValue("description"))));
-        $marker->setLat($this->request()->getValue("lat"));
-        $marker->setLong($this->request()->getValue("long"));
-        $marker->setColor($this->request()->getValue("m_color"));
-        $marker->setPhoto($this->processUploadedFile($marker));
-        if (!is_null($oldPhoto) && is_null($marker->getPhoto())) {
-            unlink($oldPhoto);
+            $id = $this->request()->getValue('id');
+            $marker = ($id ? Marker::getOne($id) : new Marker());
+            $oldPhoto = $marker->getPhoto();
+
+            $marker->setTitle($title);
+            $marker->setDescription(trim(preg_replace('/\s\s+/', ' ', $description)));
+            $marker->setLat($lat);
+            $marker->setLong($long);
+            $marker->setColor($color);
+            $marker->setPhoto($this->processUploadedFile($marker));
+            if (!is_null($oldPhoto) && is_null($marker->getPhoto())) {
+                unlink($oldPhoto);
+            }
+            $marker->save();
+
+            return $this->redirect("?c=markers");
+        } catch (Exception $e) {
+            $_SESSION['errorOccurred'] = true;
+            $_SESSION['errorMessage'] = $e->getMessage();
+            return $this->redirect("?c=markers&a=create");
         }
-        $marker->save();
-
-        return $this->redirect("?c=markers");
     }
 
     /**
