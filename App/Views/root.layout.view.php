@@ -65,6 +65,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Prihlásenie</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= \App\Config\Configuration::REGISTER_URL ?>">Registrácia</a>
+                    </li>
                 </ul>
             <?php } ?>
         </div>

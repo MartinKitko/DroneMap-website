@@ -3,20 +3,17 @@
 namespace App\Auth;
 
 use App\Core\IAuthenticator;
+use App\Models\User;
 
 /**
- * Class DummyAuthenticator
+ * Class Authenticator
  * Basic implementation of user authentication
  * @package App\Auth
  */
-class DummyAuthenticator implements IAuthenticator
+class Authenticator implements IAuthenticator
 {
-    const LOGIN = "admin";
-    const PASSWORD_HASH = '$2y$10$GRA8D27bvZZw8b85CAwRee9NH5nj4CQA6PDFMc90pN9Wi4VAWq3yq'; // admin
-    const USERNAME = "Admin";
-
     /**
-     * DummyAuthenticator constructor
+     * Authenticator constructor
      */
     public function __construct()
     {
@@ -32,8 +29,12 @@ class DummyAuthenticator implements IAuthenticator
      */
     function login($login, $password): bool
     {
-        if ($login == self::LOGIN && password_verify($password, self::PASSWORD_HASH)) {
-            $_SESSION['user'] = self::USERNAME;
+        $user = User::getAll("username = ?", [$login])[0] ?? null;
+        if ($user == null) {
+            throw new \Exception("Používateľ so zadaným menom neexistuje");
+        }
+        if (password_verify($password, $user->getPasswordHash())) {
+            $_SESSION['user'] = $login;
             return true;
         } else {
             return false;
@@ -57,7 +58,6 @@ class DummyAuthenticator implements IAuthenticator
      */
     function getLoggedUserName(): string
     {
-
         return isset($_SESSION['user']) ? $_SESSION['user'] : throw new \Exception("User not logged in");
     }
 
@@ -81,10 +81,15 @@ class DummyAuthenticator implements IAuthenticator
 
     /**
      * Return the id of the logged-in user
-     * @return mixed
+     * @return int
      */
-    function getLoggedUserId(): mixed
+    function getLoggedUserId(): int
     {
-        return $_SESSION['user'];
+        if (!$this->isLogged()) {
+            throw new \Exception("User not logged in");
+        }
+        $username = $_SESSION['user'];
+        $user = User::getAll("username = ?", [$username])[0];
+        return $user->getId();
     }
 }

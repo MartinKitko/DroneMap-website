@@ -2,7 +2,7 @@
 
 namespace App\Config;
 
-use App\Auth\DummyAuthenticator;
+use App\Auth\Authenticator;
 
 /**
  * Class Configuration
@@ -20,10 +20,11 @@ class Configuration
     public const DB_PASS = 'dtb456';
 
     public const LOGIN_URL = '?c=auth&a=login';
+    public const REGISTER_URL = '?c=auth&a=register';
 
     public const ROOT_LAYOUT = 'root';
 
     public const DEBUG_QUERY = false;
 
-    public const AUTH_CLASS = DummyAuthenticator::class;
+    public const AUTH_CLASS = Authenticator::class;
 }
