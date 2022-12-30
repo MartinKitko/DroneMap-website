@@ -62,7 +62,7 @@ if (isset($_SESSION['errorOccurred'])) {
                 </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>
-            <div id="error-message" class="alert alert-danger" style="display:none;"></div>
+            <div id="error-message" class="alert alert-danger d-none"></div>
         </div>
     </div>
 </div>
