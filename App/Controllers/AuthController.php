@@ -78,7 +78,7 @@ class AuthController extends AControllerBase
             }
             return $this->redirect("?c=auth&a=login");
         } catch (Exception $e) {
-            $_SESSION['errorOccurred'] = true;
+            $_SESSION['errorOccurred'] = 'true';
             $_SESSION['errorMessage'] = $e->getMessage();
             return $this->redirect("?c=auth&a=register");
         }
@@ -154,6 +154,9 @@ class AuthController extends AControllerBase
     {
         if (isset($_POST['password']) and isset($_POST['password2'])) {
             $password = htmlspecialchars(trim($_POST['password']), ENT_QUOTES);
+            if (strlen($password) < 8) {
+                return new JsonResponse(['tooShort' => true]);
+            }
             $password2 = htmlspecialchars(trim($_POST['password2']), ENT_QUOTES);
             return new JsonResponse(['same' => $password == $password2]);
         }

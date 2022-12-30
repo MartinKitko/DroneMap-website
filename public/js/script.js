@@ -12,7 +12,7 @@ function setDefaultOption(option) {
 
 //register.view.php
 function checkForErrors(error, errorMessage) {
-    if (error) {
+    if (error === 'true') {
         document.getElementById("error-message").innerHTML = errorMessage;
         document.getElementById("error-message").style.display = "block";
     } else {
@@ -42,12 +42,27 @@ async function checkUsername(usernameInput) {
     checkErrors();
 }
 
-$(document).ready(function () {
-    const usernameInput = $('#username');
-    usernameInput.on('keyup', function () {
-        checkUsername(usernameInput);
-    });
-});
+async function checkLogin(loginInput) {
+    const username = loginInput.val();
+    try {
+        const response = await $.ajax({
+            url: '?c=auth&a=checkUsername',
+            method: 'POST',
+            data: {username},
+            dataType: 'json'
+        });
+        if (response.hasOwnProperty('taken')) {
+            if (username !== '' && response.taken) {
+                $('#login-error').text('');
+            } else {
+                $('#login-error').text('Zadané meno nie je registrované')
+            }
+        }
+    } catch (error) {
+        console.error(error);
+    }
+    checkErrors();
+}
 
 async function checkEmail(emailInput) {
     const email = emailInput.val();
@@ -61,10 +76,8 @@ async function checkEmail(emailInput) {
         if (response.hasOwnProperty('taken')) {
             if (response.taken) {
                 $('#email-error').text('Zadaný email už niekto používa');
-                $('#submit').prop('disabled', true);
             } else {
                 $('#email-error').text('')
-                $('#submit').prop('disabled', false);
             }
         }
         if (response.hasOwnProperty('notValid')) {
@@ -80,43 +93,26 @@ async function checkEmail(emailInput) {
     checkErrors();
 }
 
-$(document).ready(function () {
-    const emailInput = $('#email');
-    emailInput.on('keyup', function () {
-        checkEmail(emailInput);
-    });
-});
-
-async function checkPasswords(passwordInput, password2Input) {
+function checkPasswdLength(passwordInput) {
     const password = passwordInput.val();
-    const password2 = password2Input.val();
-    try {
-        const response = await $.ajax({
-            url: '?c=auth&a=checkPasswords',
-            method: 'POST',
-            data: {password, password2},
-            dataType: 'json'
-        });
-        if (response.hasOwnProperty('same')) {
-            if (response.same) {
-                $('#passwords-error').text('');
-            } else {
-                $('#passwords-error').text('Zadané heslá sa nezhodujú');
-            }
-        }
-    } catch (error) {
-        console.error(error);
+    if (password !== "" && password.length < 8) {
+        $('#password-error').text('Zadané heslo je príliš krátke');
+    } else {
+        $('#password-error').text('');
     }
     checkErrors();
 }
 
-$(document).ready(function () {
-    const passwordInput = $('#password');
-    const password2Input = $('#password2');
-    password2Input.on('keyup', function () {
-        checkPasswords(passwordInput, password2Input);
-    });
-});
+function checkPasswords(passwordInput, password2Input) {
+    const password = passwordInput.val();
+    const password2 = password2Input.val();
+    if (password !== password2) {
+        $('#passwords-error').text('Zadané heslá sa nezhodujú');
+    } else {
+        $('#passwords-error').text('');
+    }
+    checkErrors();
+}
 
 function checkErrors() {
     $('#submit').prop('disabled', $('#username-error').text() !== '' || $('#email-error').text() !== '' || $('#passwords-error').text() !== '');

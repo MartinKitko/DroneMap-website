@@ -8,7 +8,7 @@ if (isset($_SESSION['errorOccurred'])) {
     unset($_SESSION['errorOccurred']);
     unset($_SESSION['errorMessage']);
 } else {
-    $errorOccurred = false;
+    $errorOccurred = 'false';
     $errorMessage = "";
 }
 
@@ -27,32 +27,30 @@ function getParam($param): string|null
             <div class="card card-signup my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Registrácia</h5>
-                    <div class="text-center text-danger mb-3">
-                        <?= @$data['message'] ?>
-                    </div>
                     <form class="form-signup" action="?c=auth&a=store" method="post" >
                         <div class="form-label-group mb-3">
                             <label for="username">Používateľské meno:</label>
-                            <input name="username" maxlength="60" type="text" id="username" class="form-control"
+                            <input name="username" maxlength="160" type="text" id="username" class="form-control"
                                    placeholder="username" required autofocus value="<?= getParam('username') ?>">
-                            <div id="username-error" class="text-danger"></div>
+                            <div id="username-error" class="form-error"></div>
                         </div>
                         <div class="form-label-group mb-3">
                             <label for="email">Email:</label>
                             <input name="email" maxlength="60" type="email" id="email" class="form-control"
                                    placeholder="example@email.com" required value="<?= getParam('email') ?>">
-                            <div id="email-error" class="text-danger"></div>
+                            <div id="email-error" class="form-error"></div>
                         </div>
                         <div class="form-label-group mb-3">
                             <label for="password">Heslo:</label>
                             <input name="password" maxlength="60" type="password" id="password" class="form-control"
                                    placeholder="password" required value="<?= getParam('password') ?>">
+                            <div id="password-error" class="form-error"></div>
                         </div>
                         <div class="form-label-group mb-3">
                             <label for="password2">Heslo znova:</label>
                             <input name="password2" maxlength="60" type="password" id="password2" class="form-control"
                                    placeholder="password" required value="<?= getParam('password2') ?>">
-                            <div id="passwords-error" class="text-danger"></div>
+                            <div id="passwords-error" class="form-error"></div>
                         </div>
                         <div class="text-center mb-3">
                             <button class="btn btn-primary" type="submit" id="submit" name="submit">Registrovať</button>
@@ -67,4 +65,22 @@ function getParam($param): string|null
 
 <script type="text/javascript">
     checkForErrors(<?= $errorOccurred ?>, '<?= $errorMessage ?>');
+    $(document).ready(function () {
+        const usernameInput = $('#username');
+        usernameInput.on('keyup', function () {
+            checkUsername(usernameInput);
+        });
+        const emailInput = $('#email');
+        emailInput.on('keyup', function () {
+            checkEmail(emailInput);
+        });
+        const passwordInput = $('#password');
+        passwordInput.on('keyup', function () {
+            checkPasswdLength(passwordInput);
+        });
+        const password2Input = $('#password2');
+        password2Input.on('keyup', function () {
+            checkPasswords(passwordInput, password2Input);
+        });
+    });
 </script>

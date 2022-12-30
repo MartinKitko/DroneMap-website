@@ -29,6 +29,11 @@ body{
     transition-duration: 350ms;
 }
 
+.form-error {
+    font-size: small;
+    color: #ff0000;
+}
+
 /* map and markers */
 #map {
     display: block;

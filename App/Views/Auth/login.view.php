@@ -15,8 +15,8 @@
                         <div class="form-label-group mb-3">
                             <input name="login" type="text" id="login" class="form-control" placeholder="Login"
                                    required autofocus>
+                            <div id="login-error" class="form-error"></div>
                         </div>
-
                         <div class="form-label-group mb-3">
                             <input name="password" type="password" id="password" class="form-control"
                                    placeholder="Password" required>
@@ -31,3 +31,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        const loginInput = $('#login');
+        loginInput.on('keydown', function () {
+            checkLogin(loginInput);
+        });
+    });
+</script>
