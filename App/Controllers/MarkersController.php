@@ -111,7 +111,7 @@ class MarkersController extends AControllerBase
             if (!is_string($description)) {
                 throw new Exception("Chyba: popis musi byt string");
             }
-            if (mb_strlen($description, "UTF-8") > 50) {
+            if (mb_strlen($description, "UTF-8") > 450) {
                 throw new Exception("Chyba: popis bodu moze mat maximalne 450 znakov");
             }
             $color = $this->request()->getValue("m_color");
