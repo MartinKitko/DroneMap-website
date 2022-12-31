@@ -34,7 +34,7 @@ class Authenticator implements IAuthenticator
             throw new \Exception("Používateľ so zadaným menom neexistuje");
         }
         if (password_verify($password, $user->getPasswordHash())) {
-            $_SESSION['user'] = $login;
+            $_SESSION['user'] = $user;
             return true;
         } else {
             return false;
@@ -58,7 +58,7 @@ class Authenticator implements IAuthenticator
      */
     function getLoggedUserName(): string
     {
-        return isset($_SESSION['user']) ? $_SESSION['user'] : throw new \Exception("User not logged in");
+        return $_SESSION['user']->getUsername() ?? throw new \Exception("User not logged in");
     }
 
     /**
@@ -67,7 +67,7 @@ class Authenticator implements IAuthenticator
      */
     function getLoggedUserContext(): mixed
     {
-        return null;
+        return $_SESSION['user'] ?? throw new \Exception("User not logged in");
     }
 
     /**
@@ -85,11 +85,6 @@ class Authenticator implements IAuthenticator
      */
     function getLoggedUserId(): int
     {
-        if (!$this->isLogged()) {
-            throw new \Exception("User not logged in");
-        }
-        $username = $_SESSION['user'];
-        $user = User::getAll("username = ?", [$username])[0];
-        return $user->getId();
+        return $_SESSION['user']->getId() ?? throw new \Exception("User not logged in");
     }
 }
