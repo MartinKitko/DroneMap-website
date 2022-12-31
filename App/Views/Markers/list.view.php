@@ -13,11 +13,14 @@ use App\Models\Marker;
             <div class="col">
                 <a href="?c=markers&a=create" class="btn btn-success w-100">Pridať nový bod</a>
             </div>
+            <div class="col">
+                <a href="javascript:filterAuthor(<?= $auth->getLoggedUserId() ?>)" id="filterBtn" class="btn btn-secondary w-100">Zobraziť iba moje miesta</a>
+            </div>
         </div>
     <?php } ?>
     <div class="row">
         <?php foreach ($data as $marker) { ?>
-            <div class="col-xl-3 col-md-4 col-sm-6 my-3">
+            <div class="col-xl-3 col-md-4 col-sm-6 my-3 markerCard" data-author-id="<?= $marker->getAuthorId() ?>">
                 <div class="card h-100">
                     <?php if ($marker->getPhoto()) { ?>
                         <img src="<?= $marker->getPhoto() ?>" class="card-img-top" alt="...">

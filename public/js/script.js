@@ -163,6 +163,29 @@ async function updateStars() {
     }
 }
 
+function filterAuthor(userId) {
+    const cards = document.querySelectorAll('.markerCard');
+    cards.forEach(card => {
+        const cardAuthorId = card.dataset.authorId;
+        if (parseInt(cardAuthorId) !== userId) {
+            card.style.display = 'none';
+        }
+    });
+    const filtBtn = document.getElementById('filterBtn');
+    filtBtn.href = "javascript:showAll(" + userId + ")";
+    filtBtn.innerText = "Zobraziť všetky miesta";
+}
+
+function showAll(userId) {
+    const cards = document.querySelectorAll('.markerCard');
+    cards.forEach(card => {
+        card.style.display = '';
+    });
+    const filtBtn = document.getElementById('filterBtn');
+    filtBtn.href = "javascript:filterAuthor(" + userId + ")";
+    filtBtn.innerText = "Zobraziť iba moje miesta";
+}
+
 function setupStarListeners() {
     const stars = document.querySelectorAll('.star');
     stars.forEach((star) => {
