@@ -27,7 +27,7 @@ class MarkersController extends AControllerBase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(): Response
     {
@@ -36,7 +36,7 @@ class MarkersController extends AControllerBase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function list(): Response
     {
@@ -46,7 +46,7 @@ class MarkersController extends AControllerBase
 
     /**
      * @return \App\Core\Responses\RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function delete()
     {
@@ -64,7 +64,7 @@ class MarkersController extends AControllerBase
 
     /**
      * @return \App\Core\Responses\ViewResponse|\App\Core\Responses\RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit()
     {
@@ -89,7 +89,7 @@ class MarkersController extends AControllerBase
 
     /**
      * @return \App\Core\Responses\RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function store()
     {
@@ -150,11 +150,15 @@ class MarkersController extends AControllerBase
 
     /**
      * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
      */
     public function rating(): Response
     {
         $id = $this->request()->getValue('id');
         $ratingNum = $this->request()->getValue('rating');
+        if ($ratingNum < 1 || $ratingNum > 5) {
+            throw new Exception("Chyba: zla hodnota hodnotenia");
+        }
         $user_id = $_SESSION['user']->getId();
 
         $found = Rating::getAll("marker_id = ? AND user_id = ?", [$id, $user_id]);
@@ -165,13 +169,20 @@ class MarkersController extends AControllerBase
             $rating->setMarkerId($id);
             $rating->setUserId($user_id);
         }
-        $rating->setRating($ratingNum);
-        $rating->save();
 
         $marker = Marker::getOne($id * 1);
-        $newAvgRating = $marker->getRating();
 
-        $data = ['newAvgRating' => $newAvgRating];
+        if ($rating->getRating() == $ratingNum) {
+            $rating?->delete();
+            $newAvgRating = $marker->getRating();
+            $data = ['deleted' => true, 'newAvgRating' => $newAvgRating];
+        } else {
+            $rating->setRating($ratingNum);
+            $rating->save();
+            $newAvgRating = $marker->getRating();
+            $data = ['newAvgRating' => $newAvgRating];
+        }
+
         return $this->json($data);
     }
 

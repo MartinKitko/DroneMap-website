@@ -160,6 +160,9 @@ async function updateRating(markerId, rating) {
             const markerRatingElement = document.querySelector(`[data-m-id="${markerId}"]`);
             markerRatingElement.textContent = newAvgRating;
         }
+        if (data.hasOwnProperty('deleted') && data.deleted) {
+            rating = 0;
+        }
 
         const starElements = document.querySelectorAll(`[data-marker-id="${markerId}"]`);
         for (let i = starElements.length - 1; i >= 0; i--) {
