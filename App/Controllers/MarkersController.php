@@ -19,7 +19,7 @@ class MarkersController extends AControllerBase
         if ($action == "create") {
             return $this->app->getAuth()->isLogged();
         }
-        $marker = Marker::getOne($this->request()->getValue('id'));
+        $marker = Marker::getOne($this->request()->getValue('id') * 1);
         return match ($action) {
             "store", "edit", "delete" => $this->app->getAuth()->isLogged() && $marker->getAuthorId() == $this->app->getAuth()->getLoggedUserId(),
             default => true,
@@ -50,7 +50,7 @@ class MarkersController extends AControllerBase
      */
     public function delete()
     {
-        $marker = Marker::getOne($this->request()->getValue('id'));
+        $marker = Marker::getOne($this->request()->getValue('id') * 1);
         if ($marker->getAuthorId() != $this->app->getAuth()->getLoggedUserId()) {
             return $this->redirect('?c=markers');
         }
@@ -69,7 +69,7 @@ class MarkersController extends AControllerBase
     public function edit()
     {
         return $this->html([
-            'marker' => Marker::getOne($this->request()->getValue('id'))
+            'marker' => Marker::getOne($this->request()->getValue('id') * 1)
         ],
             'create.form'
         );
@@ -125,7 +125,7 @@ class MarkersController extends AControllerBase
             $color = $this->request()->getValue("m_color");
 
             $id = $this->request()->getValue('id');
-            $marker = ($id ? Marker::getOne($id) : new Marker());
+            $marker = ($id ? Marker::getOne($id * 1) : new Marker());
             $oldPhoto = $marker->getPhoto();
 
             $marker->setAuthorId($_SESSION['user']->getId());
@@ -151,7 +151,7 @@ class MarkersController extends AControllerBase
     /**
      * @return \App\Core\Responses\JsonResponse
      */
-    public function rating() : Response
+    public function rating(): Response
     {
         $id = $this->request()->getValue('id');
         $ratingNum = $this->request()->getValue('rating');
@@ -168,7 +168,7 @@ class MarkersController extends AControllerBase
         $rating->setRating($ratingNum);
         $rating->save();
 
-        $marker = Marker::getOne($id);
+        $marker = Marker::getOne($id * 1);
         $newAvgRating = $marker->getRating();
 
         $data = ['newAvgRating' => $newAvgRating];
@@ -178,7 +178,7 @@ class MarkersController extends AControllerBase
     /**
      * @return \App\Core\Responses\JsonResponse
      */
-    public function getUserRatings() : Response
+    public function getUserRatings(): Response
     {
         $user_id = $_SESSION['user']->getId();
         $ratings = Rating::getAll("user_id = ?", [$user_id]);
