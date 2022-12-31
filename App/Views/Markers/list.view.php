@@ -13,7 +13,7 @@ use App\Models\Marker;
             <div class="col">
                 <a href="?c=markers&a=create" class="btn btn-success w-100">Pridať nový bod</a>
             </div>
-            <div class="col">
+            <div class="col d-none" id="filter-author">
                 <a href="javascript:filterAuthor(<?= $auth->getLoggedUserId() ?>)" id="filterBtn" class="btn btn-secondary w-100">Zobraziť iba moje miesta</a>
             </div>
         </div>
@@ -63,4 +63,5 @@ use App\Models\Marker;
 <script>
     updateStars();
     setupStarListeners();
+    checkHasMarkers();
 </script>

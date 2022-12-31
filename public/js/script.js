@@ -196,6 +196,17 @@ async function updateStars() {
     }
 }
 
+async function checkHasMarkers() {
+    const response = await fetch('?c=markers&a=getNumOfUsersMarkers');
+    const data = await response.json();
+
+    if (data.hasOwnProperty('markersCount')) {
+        if (data.markersCount > 0) {
+            document.getElementById("filter-author").classList.remove("d-none");
+        }
+    }
+}
+
 function filterAuthor(userId) {
     const cards = document.querySelectorAll('.markerCard');
     cards.forEach(card => {

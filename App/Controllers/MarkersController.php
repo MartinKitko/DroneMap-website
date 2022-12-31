@@ -16,12 +16,8 @@ class MarkersController extends AControllerBase
      */
     public function authorize($action)
     {
-        if ($action == "create") {
-            return $this->app->getAuth()->isLogged();
-        }
-        $marker = Marker::getOne($this->request()->getValue('id') * 1);
         return match ($action) {
-            "store", "edit", "delete" => $this->app->getAuth()->isLogged() && $marker->getAuthorId() == $this->app->getAuth()->getLoggedUserId(),
+            "store", "edit", "delete" => $this->app->getAuth()->isLogged(),
             default => true,
         };
     }
@@ -191,9 +187,20 @@ class MarkersController extends AControllerBase
      */
     public function getUserRatings(): Response
     {
-        $user_id = $_SESSION['user']->getId();
+        $user_id = $this->app->getAuth()->getLoggedUserId();
         $ratings = Rating::getAll("user_id = ?", [$user_id]);
         $data = ['ratings' => $ratings];
+        return $this->json($data);
+    }
+
+    /**
+     * @return \App\Core\Responses\JsonResponse
+     */
+    public function getNumOfUsersMarkers(): Response
+    {
+        $user_id = $this->app->getAuth()->getLoggedUserId();
+        $markersCount = count(Marker::getAll("author_id = ?", [$user_id]));
+        $data = ['markersCount' => $markersCount];
         return $this->json($data);
     }
 
