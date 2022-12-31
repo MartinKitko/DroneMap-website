@@ -10,7 +10,7 @@ if ($auth->isLogged()) { ?>
 <div class="row">
     <a href="?c=markers&a=create" class="btn btn-success">Pridať nový bod</a>
 </div>
-<div class="top115" id="map">
+<div class="top98" id="map">
     <?php } else { ?>
     <div class="top60" id="map">
         <?php } ?>

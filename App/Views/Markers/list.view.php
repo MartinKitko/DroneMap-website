@@ -9,9 +9,9 @@ use App\Models\Marker;
 
 <div class="container-fluid">
     <?php if ($auth->isLogged()) { ?>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col">
-                <a href="?c=markers&a=create" class="btn btn-success">Pridať nový bod</a>
+                <a href="?c=markers&a=create" class="btn btn-success w-100">Pridať nový bod</a>
             </div>
         </div>
     <?php } ?>

@@ -75,7 +75,7 @@
     </div>
 </nav>
 
-<div class="container-fluid mt-3 p-0 m-0">
+<div class="container-fluid p-0 m-0">
     <div class="web-content">
         <?= $contentHTML ?>
     </div>
