@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Core\Model;
+use App\Models\Rating;
 
 class Marker extends Model
 {
@@ -124,6 +125,27 @@ class Marker extends Model
     public function setPhoto(?string $photo): void
     {
         $this->photo = $photo;
+    }
+
+    /**
+     * Vypocita priemerne hodnotenie pre dany prispevok
+     * @return float
+     */
+    public function getRating() : float
+    {
+        $ratings = Rating::getAll("marker_id = ?", [$this->id]);
+        $totalRating = 0;
+        $numRatings = count($ratings);
+
+        for ($i = 0; $i < $numRatings; $i++) {
+            $totalRating += $ratings[$i]->getRating();
+        }
+
+        if ($numRatings > 0) {
+            return round($totalRating / $numRatings, 1);
+        } else {
+            return 0;
+        }
     }
 
     /**

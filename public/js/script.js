@@ -118,6 +118,62 @@ function checkErrors() {
     $('#submit').prop('disabled', $('#username-error').text() !== '' || $('#email-error').text() !== '' || $('#passwords-error').text() !== '');
 }
 
+//list.view.php
+async function updateRating(markerId, rating) {
+    try {
+        const response = await fetch(`?c=markers&a=rating&id=${markerId}&rating=${rating}`, {
+            method: 'POST',
+        });
+        const data = await response.json();
+        if (data.hasOwnProperty('newAvgRating')) {
+            const newAvgRating = data.newAvgRating;
+            const markerRatingElement = document.querySelector(`[data-m-id="${markerId}"]`);
+            markerRatingElement.textContent = newAvgRating;
+        }
+
+        const starElements = document.querySelectorAll(`[data-marker-id="${markerId}"]`);
+        for (let i = starElements.length - 1; i >= 0; i--) {
+            const starElement = starElements[i];
+            if (starElements.length - i <= rating) {
+                starElement.textContent = '★';
+            } else {
+                starElement.textContent = '☆';
+            }
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function updateStars() {
+    const response = await fetch('?c=markers&a=getUserRatings');
+    const data = await response.json();
+
+    for (const marker of data.ratings) {
+        const starElements = document.querySelectorAll(`[data-marker-id="${marker.marker_id}"]`);
+
+        for (let i = starElements.length - 1; i >= 0; i--) {
+            const starElement = starElements[i];
+            if (starElements.length - i <= marker.rating) {
+                starElement.textContent = '★';
+            } else {
+                starElement.textContent = '☆';
+            }
+        }
+    }
+}
+
+function setupStarListeners() {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star) => {
+        star.addEventListener('click', function (event) {
+            const markerId = event.target.dataset.markerId;
+            const rating = Number(event.target.id.slice(-1));
+            updateRating(markerId, rating);
+        });
+    });
+}
+
 //gallery.view.php
 function lightbox() {
     const lightbox = document.createElement('div')
@@ -126,7 +182,7 @@ function lightbox() {
 
     const images = document.querySelectorAll('img')
     images.forEach(image => {
-        image.addEventListener('click', e => {
+        image.addEventListener('click', () => {
             lightbox.classList.add('active')
             const img = document.createElement('img')
             img.src = image.src

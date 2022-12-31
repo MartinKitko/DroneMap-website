@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Marker;
+use App\Models\Rating;
 use Exception;
 
 class MarkersController extends AControllerBase
@@ -137,6 +138,44 @@ class MarkersController extends AControllerBase
             $_SESSION['errorMessage'] = $e->getMessage();
             return $this->redirect("?c=markers&a=create");
         }
+    }
+
+    /**
+     * @return \App\Core\Responses\JsonResponse
+     */
+    public function rating() : Response
+    {
+        $id = $this->request()->getValue('id');
+        $ratingNum = $this->request()->getValue('rating');
+        $user_id = $_SESSION['user']->getId();
+
+        $found = Rating::getAll("marker_id = ? AND user_id = ?", [$id, $user_id]);
+        if (count($found) > 0) {
+            $rating = $found[0];
+        } else {
+            $rating = new Rating();
+            $rating->setMarkerId($id);
+            $rating->setUserId($user_id);
+        }
+        $rating->setRating($ratingNum);
+        $rating->save();
+
+        $marker = Marker::getOne($id);
+        $newAvgRating = $marker->getRating();
+
+        $data = ['newAvgRating' => $newAvgRating];
+        return $this->json($data);
+    }
+
+    /**
+     * @return \App\Core\Responses\JsonResponse
+     */
+    public function getUserRatings() : Response
+    {
+        $user_id = $_SESSION['user']->getId();
+        $ratings = Rating::getAll("user_id = ?", [$user_id]);
+        $data = ['ratings' => $ratings];
+        return $this->json($data);
     }
 
     /**
