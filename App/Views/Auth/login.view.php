@@ -22,7 +22,7 @@
                                    placeholder="Password" required>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-primary" type="submit" name="submit">Prihlásiť
+                            <button class="btn btn-primary" id="submit" type="submit" name="submit">Prihlásiť
                             </button>
                         </div>
                     </form>
@@ -33,10 +33,5 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        const loginInput = $('#login');
-        loginInput.on('keydown', function () {
-            checkLogin(loginInput);
-        });
-    });
+    setupLoginListener();
 </script>

@@ -114,8 +114,38 @@ function checkPasswords(passwordInput, password2Input) {
     checkErrors();
 }
 
+function setupRegisterListeners() {
+    $(document).ready(function () {
+        const usernameInput = $('#username');
+        usernameInput.on('keyup', function () {
+            checkUsername(usernameInput);
+        });
+        const emailInput = $('#email');
+        emailInput.on('keyup', function () {
+            checkEmail(emailInput);
+        });
+        const passwordInput = $('#password');
+        passwordInput.on('keyup', function () {
+            checkPasswdLength(passwordInput);
+        });
+        const password2Input = $('#password2');
+        password2Input.on('keyup', function () {
+            checkPasswords(passwordInput, password2Input);
+        });
+    });
+}
+
+function setupLoginListener() {
+    $(document).ready(function () {
+        const loginInput = $('#login');
+        loginInput.on('keyup', function () {
+            checkLogin(loginInput);
+        });
+    });
+}
+
 function checkErrors() {
-    $('#submit').prop('disabled', $('#username-error').text() !== '' || $('#email-error').text() !== '' || $('#passwords-error').text() !== '');
+    $('#submit').prop('disabled', $('#login-error').text() !== '' || $('#username-error').text() !== '' || $('#email-error').text() !== '' || $('#passwords-error').text() !== '');
 }
 
 //list.view.php

@@ -65,22 +65,5 @@ function getParam($param): string|null
 
 <script type="text/javascript">
     checkForErrors(<?= $errorOccurred ?>, '<?= $errorMessage ?>');
-    $(document).ready(function () {
-        const usernameInput = $('#username');
-        usernameInput.on('keyup', function () {
-            checkUsername(usernameInput);
-        });
-        const emailInput = $('#email');
-        emailInput.on('keyup', function () {
-            checkEmail(emailInput);
-        });
-        const passwordInput = $('#password');
-        passwordInput.on('keyup', function () {
-            checkPasswdLength(passwordInput);
-        });
-        const password2Input = $('#password2');
-        password2Input.on('keyup', function () {
-            checkPasswords(passwordInput, password2Input);
-        });
-    });
+    setupRegisterListeners();
 </script>
