@@ -16,8 +16,12 @@ class MarkersController extends AControllerBase
      */
     public function authorize($action)
     {
+        if ($action == "create") {
+            return $this->app->getAuth()->isLogged();
+        }
+        $marker = Marker::getOne($this->request()->getValue('id'));
         return match ($action) {
-            "create", "store", "edit", "delete" => $this->app->getAuth()->isLogged(),
+            "store", "edit", "delete" => $this->app->getAuth()->isLogged() && $marker->getAuthorId() == $this->app->getAuth()->getLoggedUserId(),
             default => true,
         };
     }
@@ -47,6 +51,9 @@ class MarkersController extends AControllerBase
     public function delete()
     {
         $marker = Marker::getOne($this->request()->getValue('id'));
+        if ($marker->getAuthorId() != $this->app->getAuth()->getLoggedUserId()) {
+            return $this->redirect('?c=markers');
+        }
         if ($marker->getPhoto()) {
             unlink($marker->getPhoto());
         }
@@ -56,7 +63,7 @@ class MarkersController extends AControllerBase
     }
 
     /**
-     * @return \App\Core\Responses\ViewResponse
+     * @return \App\Core\Responses\ViewResponse|\App\Core\Responses\RedirectResponse
      * @throws \Exception
      */
     public function edit()
@@ -121,6 +128,7 @@ class MarkersController extends AControllerBase
             $marker = ($id ? Marker::getOne($id) : new Marker());
             $oldPhoto = $marker->getPhoto();
 
+            $marker->setAuthorId($_SESSION['user']->getId());
             $marker->setTitle($title);
             $marker->setDescription(trim(preg_replace('/\s\s+/', ' ', $description)));
             $marker->setLat($lat);

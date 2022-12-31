@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Core\Model;
-use App\Models\Rating;
 
 class Marker extends Model
 {
     protected ?int $id = 0;
+    protected ?int $author_id = 0;
     protected ?string $title = "";
     protected ?string $description = "";
     protected ?float $lat = 0.0;
@@ -45,6 +45,22 @@ class Marker extends Model
     public function setId(?int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getAuthorId(): ?int
+    {
+        return $this->author_id;
+    }
+
+    /**
+     * @param int|null $author_id
+     */
+    public function setAuthorId(?int $author_id): void
+    {
+        $this->author_id = $author_id;
     }
 
     /**

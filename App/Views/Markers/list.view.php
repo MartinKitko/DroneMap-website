@@ -30,12 +30,12 @@ use App\Models\Marker;
                             <?= $marker->getDescription() ?>
                         </p>
                     </div>
-                    <?php if ($auth->isLogged()) { ?>
-                        <div class="row">
-                            <p id="marker-rating" class="col">
+                    <div class="row">
+                        <p id="marker-rating" class="col">
                                 <span data-m-id="<?= $marker->getId() ?>"
                                       class="rating-number"><?= $marker->getRating() ?></span>
-                                <span class="rating-star">★</span></p>
+                            <span class="rating-star">★</span></p>
+                        <?php if ($auth->isLogged()) { ?>
                             <div class="col rating">
                                 <p id="star5" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
                                 <p id="star4" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
@@ -43,7 +43,9 @@ use App\Models\Marker;
                                 <p id="star2" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
                                 <p id="star1" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
                             </div>
-                        </div>
+                        <?php } ?>
+                    </div>
+                    <?php if ($auth->isLogged() && $marker->getAuthorId() == $auth->getLoggedUserId()) { ?>
                         <div class="card-footer">
                             <a href="?c=markers&a=edit&id=<?= $marker->getId() ?>" class="btn btn-warning">Upraviť</a>
                             <a href="?c=markers&a=delete&id=<?= $marker->getId() ?>" class="btn btn-danger">Zmazať</a>
