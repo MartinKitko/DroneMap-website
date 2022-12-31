@@ -20,7 +20,7 @@ if (isset($_SESSION['errorOccurred'])) {
     <div class="row>">
         <div class="col text-white">
             <h3>Pridanie/úprava bodu</h3>
-            <form action="?c=markers&a=store" method="post">
+            <form action="?c=markers&a=store" method="post" enctype="multipart/form-data">
                 <?php if ($marker->getId()) { ?>
                     <input type="hidden" value="<?= $marker->getId() ?>" name="id">
                 <?php } ?>
@@ -58,7 +58,7 @@ if (isset($_SESSION['errorOccurred'])) {
                 </div>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Obrázok:</label>
-                    <input class="form-control" type="file" id="photo" name="photo">
+                    <input class="form-control" type="file" id="photo" name="photo"">
                 </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>
