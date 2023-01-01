@@ -43,7 +43,11 @@ if ($auth->isLogged()) { ?>
                     .setPopup(
                         new mapboxgl.Popup({offset: 25})
                             .setHTML(
-                                `<h4><?= $marker->getTitle(); ?></h4><p><?= $marker->getDescription(); ?></p>` +
+                                `<h4><?= $marker->getTitle(); ?></h4>` +
+                                <?php if ($marker->getPhoto()) { ?>
+                                `<img src="<?= $marker->getPhoto() ?>" class="card-img-top" alt="...">` +
+                                <?php } ?>
+                                `<p class="mt-2" ><?= $marker->getDescription(); ?></p>` +
                                 `<div class="row">` +
                                 `<p id="marker-rating" class="col"><span data-m-id="<?= $marker->getId(); ?>" class="rating-number"><?= $marker->getRating(); ?></span> <span class="rating-star">★</span></p>` +
                                 `</div>`
