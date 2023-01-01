@@ -150,8 +150,8 @@ body{
 /* star rating */
 .rating {
     display: flex;
-    flex-direction: row-reverse;
     justify-content: center;
+    flex-direction: row-reverse;
 }
 
 .rating > p {
@@ -169,13 +169,13 @@ body{
     opacity: 0;
 }
 
+.rating:hover > p::before{
+    opacity: 0.2;
+}
+
 .rating > p:hover::before,
 .rating > p:hover ~ p::before {
     opacity: 1 !important;
-}
-
-.rating:hover > p::before{
-    opacity: 0.4;
 }
 
 .rating-number {
