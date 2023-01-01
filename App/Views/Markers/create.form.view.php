@@ -10,13 +10,13 @@ $marker = $data['marker'];
 <div class="container">
     <div class="row>">
         <div class="col text-white mt-3">
-            <h3>Pridanie/úprava bodu</h3>
+            <h3>Pridanie/úprava lokality</h3>
             <form action="?c=markers&a=store" method="post" enctype="multipart/form-data">
                 <?php if ($marker->getId()) { ?>
                     <input type="hidden" value="<?= $marker->getId() ?>" name="id">
                 <?php } ?>
                 <div class="mb-3">
-                    <label for="title" class="form-label">Názov bodu:</label>
+                    <label for="title" class="form-label">Názov lokality:</label>
                     <input required autofocus maxlength="50" type="text" class="form-control" id="title" name="title"
                            value="<?= $marker->getTitle() ?>">
                 </div>
@@ -52,6 +52,11 @@ $marker = $data['marker'];
                     <input required type="number" step="any" min="-180" max="180" class="form-control" id="long"
                            name="long" value="<?= $marker->getLong() ?>">
                 </div>
+                <?php if ($marker->getPhoto()) { ?>
+                <div class="mb-3">
+                    <p>Aktuálny obrázok: <?= $marker->getPhoto() ?></p>
+                </div>
+                <?php } ?>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Obrázok:</label>
                     <input class="form-control" type="file" id="photo" name="photo"">

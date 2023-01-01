@@ -8,7 +8,7 @@ use App\Models\Marker;
 
 if ($auth->isLogged()) { ?>
 <div class="row">
-    <a href="?c=markers&a=create" class="btn btn-success">Pridať nový bod</a>
+    <a href="?c=markers&a=create" class="btn btn-success">Pridať novú lokalitu</a>
 </div>
 <div class="top98" id="map">
     <?php } else { ?>
