@@ -29,16 +29,17 @@ use App\Models\Event;
                         <p class="card-text mt-2">
                             <?= $event->getDescription() ?>
                         </p>
-                        <p>Začiatok: <?= $event->getDateFrom() ?><br>
-                        <?php if ($event->getDateTo() != "") { ?>
-                            Koniec: <?= $event->getDateTo() ?>
-                        <?php } ?>
+                        <p>Začiatok: <?= date("d. m. Y H:i", strtotime($event->getDateFrom())) ?><br>
+                            <?php if ($event->getDateTo() != "") { ?>
+                                Koniec: <?= date("d. m. Y H:i", strtotime($event->getDateto())) ?>
+                            <?php } ?>
                         </p>
                     </div>
                     <?php if ($auth->isLogged() && $event->getAuthorId() == $auth->getLoggedUserId()) { ?>
                         <div class="card-footer">
                             <a href="?c=events&a=edit&id=<?= $event->getId() ?>" class="btn btn-warning">Upraviť</a>
-                            <a href="?c=events&a=delete&id=<?= $event->getId() ?>" class="btn btn-danger" onclick="return confirm('Naozaj chcete odstrániť túto udalosť?');">Zmazať</a>
+                            <a href="?c=events&a=delete&id=<?= $event->getId() ?>" class="btn btn-danger"
+                               onclick="return confirm('Naozaj chcete odstrániť túto udalosť?');">Zmazať</a>
                         </div>
                     <?php } ?>
                 </div>
