@@ -247,7 +247,7 @@ function setupStarListeners() {
     stars.forEach((star) => {
         star.addEventListener('click', function (event) {
             const markerId = event.target.dataset.markerId;
-            const rating = Number(event.target.id.slice(-1));
+            const rating = Number(event.target.classList[1].slice(-1));
             updateRating(markerId, rating);
         });
     });

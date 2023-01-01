@@ -16,7 +16,7 @@
 
 <div class="row mt-3">
     <div class="col w-100">
-        <iframe width="100%" height="600" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=48.76517084981343,%2018.494904041290287+(My%20Business%20Name)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+        <iframe class="w-100" height="600" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=48.76517084981343,%2018.494904041290287+(My%20Business%20Name)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
         </iframe>
     </div>
 </div>

@@ -41,47 +41,42 @@ class AuthController extends AControllerBase
     /**
      * Store a new user
      * @return \App\Core\Responses\RedirectResponse|\App\Core\Responses\ViewResponse
+     * @throws Exception
      */
     public function store(): Response
     {
-        try {
-            $formData = $this->app->getRequest()->getPost();
-            if (isset($formData['submit'])) {
-                $username = trim($this->request()->getValue("username"));
-                if (empty($username)) {
-                    throw new Exception("Nezadané žiadne používateľské meno");
-                }
-                $user = User::getAll("username = ?", [$username])[0] ?? null;
-                if ($user != null) {
-                    throw new Exception("Používateľské meno už niekto používa");
-                } else {
-                    $user = new User();
-                }
-                $user->setUsername($username);
-                $email = filter_var($this->request()->getValue("email"), FILTER_VALIDATE_EMAIL);
-                if (!$email) {
-                    throw new Exception("Emailová adresa nie je platná");
-                }
-                $emailDB = User::getAll("email = ?", [$email])[0] ?? null;
-                if ($emailDB != null) {
-                    throw new Exception("Zadaný email už niekto používa");
-                }
-                $user->setEmail($email);
-                $password = $this->request()->getValue("password");
-                $password2 = $this->request()->getValue("password2");
-                if ($password != $password2) {
-                    throw new Exception("Zadané heslá sa nezhodujú");
-                }
-                $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
-
-                $user->save();
+        $formData = $this->app->getRequest()->getPost();
+        if (isset($formData['submit'])) {
+            $username = trim($this->request()->getValue("username"));
+            if (empty($username)) {
+                throw new Exception("Nezadané žiadne používateľské meno");
             }
-            return $this->redirect("?c=auth&a=login");
-        } catch (Exception $e) {
-            $_SESSION['errorOccurred'] = 'true';
-            $_SESSION['errorMessage'] = $e->getMessage();
-            return $this->redirect("?c=auth&a=register");
+            $user = User::getAll("username = ?", [$username])[0] ?? null;
+            if ($user != null) {
+                throw new Exception("Používateľské meno už niekto používa");
+            } else {
+                $user = new User();
+            }
+            $user->setUsername($username);
+            $email = filter_var($this->request()->getValue("email"), FILTER_VALIDATE_EMAIL);
+            if (!$email) {
+                throw new Exception("Emailová adresa nie je platná");
+            }
+            $emailDB = User::getAll("email = ?", [$email])[0] ?? null;
+            if ($emailDB != null) {
+                throw new Exception("Zadaný email už niekto používa");
+            }
+            $user->setEmail($email);
+            $password = $this->request()->getValue("password");
+            $password2 = $this->request()->getValue("password2");
+            if ($password != $password2) {
+                throw new Exception("Zadané heslá sa nezhodujú");
+            }
+            $user->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
+
+            $user->save();
         }
+        return $this->redirect("?c=auth&a=login");
     }
 
     /**
@@ -116,6 +111,7 @@ class AuthController extends AControllerBase
     /**
      * Check if the username is already taken
      * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
      */
     public function checkUsername(): Response
     {
@@ -131,6 +127,7 @@ class AuthController extends AControllerBase
     /**
      * Check if the email is already taken
      * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
      */
     public function checkEmail(): Response
     {

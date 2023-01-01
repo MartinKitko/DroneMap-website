@@ -72,4 +72,3 @@ if ($auth->isLogged()) { ?>
             });
         </script>
     </div>
-</div>

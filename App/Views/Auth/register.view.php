@@ -2,24 +2,6 @@
 
 /** @var Array $data */
 
-if (isset($_SESSION['errorOccurred'])) {
-    $errorOccurred = $_SESSION['errorOccurred'];
-    $errorMessage = $_SESSION['errorMessage'];
-    unset($_SESSION['errorOccurred']);
-    unset($_SESSION['errorMessage']);
-} else {
-    $errorOccurred = 'false';
-    $errorMessage = "";
-}
-
-function getParam($param): string|null
-{
-    if (isset($_POST[$param])) {
-        return htmlspecialchars(trim($_POST[$param]), ENT_QUOTES);
-    }
-    return null;
-}
-
 ?>
 <div class="container">
     <div class="row">
@@ -31,25 +13,25 @@ function getParam($param): string|null
                         <div class="form-label-group mb-3">
                             <label for="username">Používateľské meno:</label>
                             <input name="username" maxlength="160" type="text" id="username" class="form-control"
-                                   placeholder="username" required autofocus value="<?= getParam('username') ?>">
+                                   placeholder="username" required autofocus>
                             <div id="username-error" class="form-error"></div>
                         </div>
                         <div class="form-label-group mb-3">
                             <label for="email">Email:</label>
                             <input name="email" maxlength="60" type="email" id="email" class="form-control"
-                                   placeholder="example@email.com" required value="<?= getParam('email') ?>">
+                                   placeholder="example@email.com" required>
                             <div id="email-error" class="form-error"></div>
                         </div>
                         <div class="form-label-group mb-3">
                             <label for="password">Heslo:</label>
                             <input name="password" maxlength="60" type="password" id="password" class="form-control"
-                                   placeholder="password" required value="<?= getParam('password') ?>">
+                                   placeholder="password" required>
                             <div id="password-error" class="form-error"></div>
                         </div>
                         <div class="form-label-group mb-3">
                             <label for="password2">Heslo znova:</label>
                             <input name="password2" maxlength="60" type="password" id="password2" class="form-control"
-                                   placeholder="password" required value="<?= getParam('password2') ?>">
+                                   placeholder="password" required>
                             <div id="passwords-error" class="form-error"></div>
                         </div>
                         <div class="text-center mb-3">
@@ -63,7 +45,6 @@ function getParam($param): string|null
     </div>
 </div>
 
-<script type="text/javascript">
-    checkForErrors(<?= $errorOccurred ?>, '<?= $errorMessage ?>');
+<script>
     setupRegisterListeners();
 </script>

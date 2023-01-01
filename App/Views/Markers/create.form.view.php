@@ -63,7 +63,7 @@ $marker = $data['marker'];
                 <?php } ?>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Obrázok:</label>
-                    <input class="form-control" type="file" id="photo" name="photo"">
+                    <input class="form-control" type="file" id="photo" name="photo">
                 </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>
@@ -71,7 +71,7 @@ $marker = $data['marker'];
     </div>
 </div>
 
-<script type="text/javascript">
+<script>
     countChars('description', 'charcount');
     setDefaultOption('<?= $marker->getColor() ?>');
 </script>

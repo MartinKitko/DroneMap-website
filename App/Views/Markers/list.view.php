@@ -36,17 +36,17 @@ $_SESSION['lastOpened'] = 'list';
                         </p>
                     </div>
                     <div class="row">
-                        <p id="marker-rating" class="col">
+                        <p class="col">
                                 <span data-m-id="<?= $marker->getId() ?>"
                                       class="rating-number"><?= $marker->getRating() ?></span>
                             <span class="rating-star">★</span></p>
                         <?php if ($auth->isLogged()) { ?>
                             <div class="col rating">
-                                <p id="star5" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
-                                <p id="star4" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
-                                <p id="star3" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
-                                <p id="star2" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
-                                <p id="star1" class="star" data-marker-id="<?= $marker->getId() ?>">☆</p>
+                                <p class="star star5" data-marker-id="<?= $marker->getId() ?>">☆</p>
+                                <p class="star star4" data-marker-id="<?= $marker->getId() ?>">☆</p>
+                                <p class="star star3" data-marker-id="<?= $marker->getId() ?>">☆</p>
+                                <p class="star star2" data-marker-id="<?= $marker->getId() ?>">☆</p>
+                                <p class="star star1" data-marker-id="<?= $marker->getId() ?>">☆</p>
                             </div>
                         <?php } ?>
                     </div>

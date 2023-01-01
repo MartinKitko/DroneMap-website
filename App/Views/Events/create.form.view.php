@@ -29,8 +29,11 @@ $markers = $data['markers'];
                 <div class="mb-3">
                     <label for="marker-id" class="form-label">Lokalita:</label>
                     <select required name="marker-id" id="marker-id">
-                        <option disabled selected value> -- vyberte lokalitu -- </option>
-                        <?php
+                        <?php if ($event->getMarkerId() == 0) { ?>
+                            <option disabled selected value> -- vyberte lokalitu -- </option>
+                        <?php } else { ?>
+                            <option disabled  value> -- vyberte lokalitu -- </option>
+                        <?php }
                         foreach ($markers as $marker) {
                             $selected = '';
                             if ($marker->getId() == $event->getMarkerId()) {
@@ -45,14 +48,14 @@ $markers = $data['markers'];
                     <div class="col">
                         <label for="date-from">Dátum a čas konania udalosti:</label>
                         <input type="datetime-local" id="date-from"
-                               name="date-from" value="2023-01-01T12:00"
+                               name="date-from" value="<?= $event->getDateFrom() ?>"
                                min="2023-01-01T00:00" max="2030-01-01T00:00"
                                required>
                     </div>
                     <div class="col">
                         <label for="date-to">Dátum a čas konca udalosti (nepovinné):</label>
                         <input type="datetime-local" id="date-to"
-                               name="date-to" value="2023-01-01T12:00"
+                               name="date-to" value="<?= $event->getDateTo() ?>"
                                min="2023-01-01T00:00" max="2030-01-01T00:00">
                     </div>
                 </div>
@@ -67,7 +70,7 @@ $markers = $data['markers'];
                 <?php } ?>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Obrázok:</label>
-                    <input class="form-control" type="file" id="photo" name="photo"">
+                    <input class="form-control" type="file" id="photo" name="photo">
                 </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>

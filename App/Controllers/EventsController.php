@@ -6,7 +6,6 @@ use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Event;
 use App\Models\Marker;
-use DateTime;
 use Exception;
 
 class EventsController extends AControllerBase
