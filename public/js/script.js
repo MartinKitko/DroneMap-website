@@ -10,13 +10,13 @@ function setDefaultOption(option) {
     $('#m_color').val(option)
 }
 
-async function deleteImage(markerId) {
+async function deleteImage(controller, elementId) {
     if (confirm('Naozaj chcete odstrániť tento obrázok?')) {
         try {
             const response = await $.ajax({
-                url: '?c=markers&a=deletePhoto',
+                url: '?c=' + controller +'&a=deletePhoto',
                 method: 'POST',
-                data: {markerId},
+                data: {elementId},
                 dataType: 'json'
             });
 

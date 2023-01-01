@@ -55,7 +55,7 @@ $marker = $data['marker'];
                 <?php if ($marker->getPhoto()) { ?>
                     <div class="mb-3" id="image-delete">
                         <p>Aktuálny obrázok: <?= $marker->getPhoto() ?>
-                            <button type="button" onclick="deleteImage(<?= $marker->getId() ?>)" class="delete-x">
+                            <button type="button" onclick="deleteImage('markers' ,<?= $marker->getId() ?>)" class="delete-x">
                                 <span class="text-danger">&times;</span>
                             </button>
                         </p>

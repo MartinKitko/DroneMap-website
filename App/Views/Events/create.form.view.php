@@ -41,7 +41,7 @@ $markers = $data['markers'];
                         ?>
                     </select>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="date-from">Dátum a čas konania udalosti:</label>
                         <input type="datetime-local" id="date-from"
@@ -56,6 +56,15 @@ $markers = $data['markers'];
                                min="2023-01-01T00:00" max="2030-01-01T00:00">
                     </div>
                 </div>
+                <?php if ($event->getPhoto()) { ?>
+                    <div class="mb-3" id="image-delete">
+                        <p>Aktuálny obrázok: <?= $event->getPhoto() ?>
+                            <button type="button" onclick="deleteImage('events' ,<?= $event->getId() ?>)" class="delete-x">
+                                <span class="text-danger">&times;</span>
+                            </button>
+                        </p>
+                    </div>
+                <?php } ?>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Obrázok:</label>
                     <input class="form-control" type="file" id="photo" name="photo"">

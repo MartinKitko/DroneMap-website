@@ -209,7 +209,7 @@ class MarkersController extends AControllerBase
      */
     public function deletePhoto(): Response
     {
-        $id = $this->request()->getValue('markerId');
+        $id = $this->request()->getValue('elementId');
         $marker = Marker::getOne($id);
         if ($marker->getAuthorId() != $this->app->getAuth()->getLoggedUserId()) {
             $data = ['successful' => false];

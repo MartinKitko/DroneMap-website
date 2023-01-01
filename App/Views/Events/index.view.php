@@ -19,14 +19,14 @@ use App\Models\Event;
         <?php foreach ($data as $event) { ?>
             <div class="col-xl-3 col-md-4 col-sm-6 my-3 markerCard" data-author-id="<?= $event->getAuthorId() ?>">
                 <div class="card h-100">
+                    <?php if ($event->getPhoto()) { ?>
+                        <img src="<?= $event->getPhoto() ?>" class="card-img-top" alt="...">
+                    <?php } ?>
                     <div class="card-body">
                         <h5 class="card-title">
                             <?= $event->getTitle() ?>
                         </h5>
-                        <?php if ($event->getPhoto()) { ?>
-                            <img src="<?= $event->getPhoto() ?>" class="card-img-top" alt="...">
-                        <?php } ?>
-                        <p class="card-text">
+                        <p class="card-text mt-2">
                             <?= $event->getDescription() ?>
                         </p>
                         <p>Začiatok: <?= $event->getDateFrom() ?><br>

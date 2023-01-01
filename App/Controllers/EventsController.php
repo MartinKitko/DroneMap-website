@@ -133,6 +133,26 @@ class EventsController extends AControllerBase
     }
 
     /**
+     * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
+     */
+    public function deletePhoto(): Response
+    {
+        $id = $this->request()->getValue('elementId');
+        $event = Event::getOne($id);
+        if ($this->app->getAuth()->getLoggedUserId() != $event->getAuthorId()) {
+            $data = ['successful' => false];
+            return $this->json($data);
+        }
+        unlink($event->getPhoto());
+        $event->setPhoto(null);
+        $event->save();
+
+        $data = ['successful' => true];
+        return $this->json($data);
+    }
+
+    /**
      * @param $event
      * @return string|null
      */
