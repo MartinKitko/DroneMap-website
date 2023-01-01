@@ -5,6 +5,7 @@ use App\Models\Marker;
 
 /** @var Marker[] $data */
 /** @var IAuthenticator $auth */
+$_SESSION['lastOpened'] = 'index';
 
 if ($auth->isLogged()) { ?>
 <div class="row">

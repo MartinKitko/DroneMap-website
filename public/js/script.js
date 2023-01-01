@@ -10,6 +10,27 @@ function setDefaultOption(option) {
     $('#m_color').val(option)
 }
 
+async function deleteImage(markerId) {
+    if (confirm('Naozaj chcete odstrániť tento obrázok?')) {
+        try {
+            const response = await $.ajax({
+                url: '?c=markers&a=deletePhoto',
+                method: 'POST',
+                data: {markerId},
+                dataType: 'json'
+            });
+
+            if (response.hasOwnProperty('successful')) {
+                if (response.successful) {
+                    document.getElementById("image-delete").classList.add("d-none");
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
 //register.view.php
 async function checkUsername(usernameInput) {
     const username = usernameInput.val();

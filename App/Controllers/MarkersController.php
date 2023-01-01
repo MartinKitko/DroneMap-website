@@ -121,7 +121,6 @@ class MarkersController extends AControllerBase
 
         $id = $this->request()->getValue('id');
         $marker = ($id ? Marker::getOne($id * 1) : new Marker());
-        $oldPhoto = $marker->getPhoto();
 
         $marker->setAuthorId($this->app->getAuth()->getLoggedUserId());
         $marker->setTitle($title);
@@ -129,12 +128,16 @@ class MarkersController extends AControllerBase
         $marker->setLat($lat);
         $marker->setLong($long);
         $marker->setColor($color);
-        $marker->setPhoto($this->processUploadedFile($marker));
-        if (!is_null($oldPhoto) && is_null($marker->getPhoto())) {
-            unlink($oldPhoto);
+        $newPhoto = $this->processUploadedFile($marker);
+        if ($newPhoto != null) {
+            $marker->setPhoto($newPhoto);
         }
+
         $marker->save();
 
+        if ($_SESSION['lastOpened'] == 'list') {
+            return $this->redirect("?c=markers&a=list");
+        }
         return $this->redirect("?c=markers");
     }
 
@@ -149,7 +152,7 @@ class MarkersController extends AControllerBase
         if ($ratingNum < 1 || $ratingNum > 5) {
             throw new Exception("Chyba: zla hodnota hodnotenia");
         }
-        $user_id = $_SESSION['user']->getId();
+        $user_id = $this->app->getAuth()->getLoggedUserId();
 
         $found = Rating::getAll("marker_id = ? AND user_id = ?", [$id, $user_id]);
         if (count($found) > 0) {
@@ -178,6 +181,7 @@ class MarkersController extends AControllerBase
 
     /**
      * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
      */
     public function getUserRatings(): Response
     {
@@ -189,12 +193,33 @@ class MarkersController extends AControllerBase
 
     /**
      * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
      */
     public function getNumOfUsersMarkers(): Response
     {
         $user_id = $this->app->getAuth()->getLoggedUserId();
         $markersCount = count(Marker::getAll("author_id = ?", [$user_id]));
         $data = ['markersCount' => $markersCount];
+        return $this->json($data);
+    }
+
+    /**
+     * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
+     */
+    public function deletePhoto(): Response
+    {
+        $id = $this->request()->getValue('markerId');
+        $marker = Marker::getOne($id);
+        if ($marker->getAuthorId() != $this->app->getAuth()->getLoggedUserId()) {
+            $data = ['successful' => false];
+            return $this->json($data);
+        }
+        unlink($marker->getPhoto());
+        $marker->setPhoto(null);
+        $marker->save();
+
+        $data = ['successful' => true];
         return $this->json($data);
     }
 

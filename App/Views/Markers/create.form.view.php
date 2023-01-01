@@ -53,9 +53,13 @@ $marker = $data['marker'];
                            name="long" value="<?= $marker->getLong() ?>">
                 </div>
                 <?php if ($marker->getPhoto()) { ?>
-                <div class="mb-3">
-                    <p>Aktuálny obrázok: <?= $marker->getPhoto() ?></p>
-                </div>
+                    <div class="mb-3" id="image-delete">
+                        <p>Aktuálny obrázok: <?= $marker->getPhoto() ?>
+                            <button type="button" onclick="deleteImage(<?= $marker->getId() ?>)" class="delete-x">
+                                <span class="text-danger">&times;</span>
+                            </button>
+                        </p>
+                    </div>
                 <?php } ?>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Obrázok:</label>

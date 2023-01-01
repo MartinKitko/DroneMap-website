@@ -20,7 +20,7 @@ body{
     width: 45px;
 }
 
-.fs-c-18px {
+.fs-c-17px {
     font-size: 17px;
 }
 
@@ -32,6 +32,13 @@ body{
 .form-error {
     font-size: small;
     color: #ff0000;
+}
+
+.delete-x {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
 }
 
 /* map and markers */
@@ -101,6 +108,7 @@ body{
     transform: translate(-50%, -50%)
 }
 
+/* lightbox */
 #lightbox {
     position: fixed;
     z-index: 1000;
@@ -171,7 +179,7 @@ body{
 }
 
 .rating-number {
-    margin-left: 5%;
+    margin-left: 15px;
     font-size: 20px;
     color: black;
 }

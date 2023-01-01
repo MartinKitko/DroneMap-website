@@ -19,19 +19,19 @@
     <div class="card col-sm-4 p-0 border-0 bg-gray rounded-0">
         <a href="https://oscarliang.com/fpv-drone-guide/" class="p-0 hover-expand" target="_blank">
             <img src="public/images/navody.jpg" class="img-fluid" alt="navody"></a>
-        <div class="p-3 text-center text-white lead fs-c-18px">1. Všeobecné návody k závodným FPV koptéram pre
+        <div class="p-3 text-center text-white lead fs-c-17px">1. Všeobecné návody k závodným FPV koptéram pre
             začiatočníkov od OscarLiang s názvom The Complete Beginner Guide</div>
     </div>
     <div class="card col-sm-4 p-0 border-0 bg-gray rounded-0">
         <a href="https://www.multigp.com" class="p-0 hover-expand" target="_blank">
             <img src="public/images/zavody.jpg " class="img-fluid" alt="zavody"></a>
-        <div class="p-3 text-center text-white lead fs-c-18px">2. Medzinárodná organizácia organizujúca závody so
+        <div class="p-3 text-center text-white lead fs-c-17px">2. Medzinárodná organizácia organizujúca závody so
             závodnými FPV kvadrokoptérami s vyše 30 000 registrovanými účastníkmi</div>
     </div>
     <div class="card col-sm-4 p-0 border-0 bg-gray rounded-0">
         <a href="https://www.liftoff-game.com" class="p-0 hover-expand" target="_blank">
             <img src="public/images/simulator.jpg" class="img-fluid" alt="simulator"></a>
-        <div class="p-3 text-center text-white lead fs-c-18px">3. Jeden z najznámejších simulátorov závodných a
+        <div class="p-3 text-center text-white lead fs-c-17px">3. Jeden z najznámejších simulátorov závodných a
             freestyle FPV kvadrokoptér s názvom Liftoff</div>
     </div>
 </div>
