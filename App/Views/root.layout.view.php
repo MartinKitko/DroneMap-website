@@ -22,7 +22,7 @@
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar sticky-top navbar-expand-md bg-gray navbar-dark">
+<nav class="navbar sticky-top navbar-expand-lg bg-gray navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="?c=home">
             <img src="public/images/logo.png" alt="Avatar Logo" class="rounded-pill logo-width"
@@ -40,7 +40,10 @@
                     <a class="nav-link" href="?c=markers">MAPA</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?c=markers&a=list">ZOZNAM</a>
+                    <a class="nav-link" href="?c=markers&a=list">LOKALITY</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?c=events">UDALOSTI</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?c=home&a=gallery">GALÉRIA</a>

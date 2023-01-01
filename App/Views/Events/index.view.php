@@ -1,0 +1,52 @@
+<?php
+
+use App\Core\IAuthenticator;
+use App\Models\Event;
+
+/** @var Event[] $data */
+/** @var IAuthenticator $auth */
+?>
+
+<div class="container-fluid">
+    <?php if ($auth->isLogged()) { ?>
+        <div class="row mt-3">
+            <div class="col">
+                <a href="?c=events&a=create" class="btn btn-success w-100">Pridať novú udalosť</a>
+            </div>
+        </div>
+    <?php } ?>
+    <div class="row">
+        <?php foreach ($data as $event) { ?>
+            <div class="col-xl-3 col-md-4 col-sm-6 my-3 markerCard" data-author-id="<?= $event->getAuthorId() ?>">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?= $event->getTitle() ?>
+                        </h5>
+                        <?php if ($event->getPhoto()) { ?>
+                            <img src="<?= $event->getPhoto() ?>" class="card-img-top" alt="...">
+                        <?php } ?>
+                        <p class="card-text">
+                            <?= $event->getDescription() ?>
+                        </p>
+                        <p>Začiatok: <?= $event->getDateFrom() ?><br>
+                        <?php if ($event->getDateTo() != "") { ?>
+                            Koniec: <?= $event->getDateTo() ?>
+                        <?php } ?>
+                        </p>
+                    </div>
+                    <?php if ($auth->isLogged() && $event->getAuthorId() == $auth->getLoggedUserId()) { ?>
+                        <div class="card-footer">
+                            <a href="?c=events&a=edit&id=<?= $event->getId() ?>" class="btn btn-warning">Upraviť</a>
+                            <a href="?c=events&a=delete&id=<?= $event->getId() ?>" class="btn btn-danger" onclick="return confirm('Naozaj chcete odstrániť túto udalosť?');">Zmazať</a>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+
+<script>
+
+</script>
