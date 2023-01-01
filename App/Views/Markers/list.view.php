@@ -14,7 +14,8 @@ use App\Models\Marker;
                 <a href="?c=markers&a=create" class="btn btn-success w-100">Pridať nový bod</a>
             </div>
             <div class="col d-none" id="filter-author">
-                <a href="javascript:filterAuthor(<?= $auth->getLoggedUserId() ?>)" id="filterBtn" class="btn btn-secondary w-100">Zobraziť iba moje miesta</a>
+                <a href="javascript:filterAuthor(<?= $auth->getLoggedUserId() ?>)" id="filterBtn"
+                   class="btn btn-secondary w-100">Zobraziť iba moje miesta</a>
             </div>
         </div>
     <?php } ?>
@@ -51,7 +52,8 @@ use App\Models\Marker;
                     <?php if ($auth->isLogged() && $marker->getAuthorId() == $auth->getLoggedUserId()) { ?>
                         <div class="card-footer">
                             <a href="?c=markers&a=edit&id=<?= $marker->getId() ?>" class="btn btn-warning">Upraviť</a>
-                            <a href="?c=markers&a=delete&id=<?= $marker->getId() ?>" class="btn btn-danger">Zmazať</a>
+                            <a href="?c=markers&a=delete&id=<?= $marker->getId() ?>" class="btn btn-danger"
+                               onclick="return confirm('Naozaj chcete odstrániť túto lokalitu?');">Zmazať</a>
                         </div>
                     <?php } ?>
                 </div>

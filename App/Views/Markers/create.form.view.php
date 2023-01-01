@@ -1,24 +1,15 @@
 <?php
 /** @var Array $data */
+
 use App\Models\Marker;
 
 /** @var Marker $marker */
 $marker = $data['marker'];
-
-if (isset($_SESSION['errorOccurred'])) {
-    $errorOccurred = $_SESSION['errorOccurred'];
-    $errorMessage = $_SESSION['errorMessage'];
-    unset($_SESSION['errorOccurred']);
-    unset($_SESSION['errorMessage']);
-} else {
-    $errorOccurred = false;
-    $errorMessage = "";
-}
 ?>
 
 <div class="container">
     <div class="row>">
-        <div class="col text-white">
+        <div class="col text-white mt-3">
             <h3>Pridanie/úprava bodu</h3>
             <form action="?c=markers&a=store" method="post" enctype="multipart/form-data">
                 <?php if ($marker->getId()) { ?>
@@ -26,12 +17,15 @@ if (isset($_SESSION['errorOccurred'])) {
                 <?php } ?>
                 <div class="mb-3">
                     <label for="title" class="form-label">Názov bodu:</label>
-                    <input required maxlength="50" type="text" class="form-control" id="title" name="title" value="<?= $marker->getTitle() ?>">
+                    <input required autofocus maxlength="50" type="text" class="form-control" id="title" name="title"
+                           value="<?= $marker->getTitle() ?>">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Popis:</label>
-                    <textarea maxlength="450" class="form-control" id="description" name="description" style="height:100px"
-                              onkeyup="countChars('description','charcount');" onkeydown="countChars('description','charcount');"
+                    <textarea maxlength="450" class="form-control" id="description" name="description"
+                              style="height:100px"
+                              onkeyup="countChars('description','charcount');"
+                              onkeydown="countChars('description','charcount');"
                               onmouseout="countChars('description','charcount');"><?= $marker->getDescription() ?></textarea>
                     <span id="charcount">0</span>/450 znakov
                 </div>
@@ -50,11 +44,13 @@ if (isset($_SESSION['errorOccurred'])) {
                 </div>
                 <div class="mb-3">
                     <label for="lat" class="form-label">Zemepisná šírka (latitude):</label>
-                    <input required type="number" step="any" min="-90" max="90" class="form-control" id="lat" name="lat" value="<?= $marker->getLat() ?>">
+                    <input required type="number" step="any" min="-90" max="90" class="form-control" id="lat" name="lat"
+                           value="<?= $marker->getLat() ?>">
                 </div>
                 <div class="mb-3">
                     <label for="long" class="form-label">Zemepisná dĺžka (longitude):</label>
-                    <input required type="number" step="any" min="-180" max="180" class="form-control" id="long" name="long" value="<?= $marker->getLong() ?>">
+                    <input required type="number" step="any" min="-180" max="180" class="form-control" id="long"
+                           name="long" value="<?= $marker->getLong() ?>">
                 </div>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Obrázok:</label>
@@ -62,13 +58,11 @@ if (isset($_SESSION['errorOccurred'])) {
                 </div>
                 <button type="submit" class="btn btn-success">Potvrdiť</button>
             </form>
-            <div id="error-message" class="alert alert-danger d-none"></div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    countChars('description','charcount');
+    countChars('description', 'charcount');
     setDefaultOption('<?= $marker->getColor() ?>');
-    checkForErrors(<?= $errorOccurred ?>, '<?= $errorMessage ?>');
 </script>
