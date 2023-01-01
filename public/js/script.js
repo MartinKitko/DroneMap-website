@@ -11,15 +11,6 @@ function setDefaultOption(option) {
 }
 
 //register.view.php
-function checkForErrors(error, errorMessage) {
-    if (error === 'true') {
-        document.getElementById("error-message").innerHTML = errorMessage;
-        document.getElementById("error-message").style.display = "block";
-    } else {
-        document.getElementById("error-message").style.display = "none";
-    }
-}
-
 async function checkUsername(usernameInput) {
     const username = usernameInput.val();
     try {
