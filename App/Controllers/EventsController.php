@@ -28,7 +28,14 @@ class EventsController extends AControllerBase
     public function index(): Response
     {
         $events = Event::getAll();
-        return $this->html($events);
+        usort($events, function($a, $b) {
+            return strtotime($a->getDateFrom()) - strtotime($b->getDateFrom());
+        });
+        $locations = [];
+        foreach ($events as $event) {
+            $locations[$event->getMarkerId()] = Marker::getOne($event->getMarkerId());
+        }
+        return $this->html(['events' => $events, 'locations' => $locations]);
     }
 
     /**
@@ -119,7 +126,7 @@ class EventsController extends AControllerBase
         $event->setTitle($title);
         $event->setDescription(trim(preg_replace('/\s\s+/', ' ', $description)));
         $event->setDateFrom($date_from);
-        if ($date_to != "2023-01-01T12:00") {
+        if ($date_to != "") {
             $event->setDateTo($date_to);
         }
         $event->setPhoto($this->processUploadedFile($event));

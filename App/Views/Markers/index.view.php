@@ -7,6 +7,16 @@ use App\Models\Marker;
 /** @var IAuthenticator $auth */
 $_SESSION['lastOpened'] = 'index';
 
+if (isset($_GET['lat']) && isset($_GET['long'])) {
+    $lat = $_GET['lat'];
+    $long = $_GET['long'];
+    $zoom = 14;
+} else {
+    $lat = 48.7562;
+    $long = 18.5586;
+    $zoom = 11.5;
+}
+
 if ($auth->isLogged()) { ?>
 <div class="row">
     <a href="?c=markers&a=create" class="btn btn-success">Pridať novú lokalitu</a>
@@ -16,17 +26,13 @@ if ($auth->isLogged()) { ?>
     <div class="top60" id="map">
         <?php } ?>
         <script>
-            let $defaultLat = 48.7562;
-            let $defaultLong = 18.5586;
-            let $defaultZoom = 11.5;
-
             mapboxgl.accessToken = 'pk.eyJ1IjoibWFydGluLWtpdCIsImEiOiJjbGFta256ZnQwMHdwM3Zudmxyanc3OGRxIn0.frnxdqab00eiqutXB60fKQ';
 
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/martin-kit/clamklbrs000714rckzalpmix',
-                center: [$defaultLong, $defaultLat],
-                zoom: $defaultZoom
+                center: [<?= $long ?>, <?= $lat ?>],
+                zoom: <?= $zoom ?>
             });
 
             map.addControl(new mapboxgl.FullscreenControl());

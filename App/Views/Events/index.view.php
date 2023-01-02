@@ -3,7 +3,8 @@
 use App\Core\IAuthenticator;
 use App\Models\Event;
 
-/** @var Event[] $data */
+/** @var Event[] $data['events'] */
+/** @var String[] $data['locations'] */
 /** @var IAuthenticator $auth */
 ?>
 
@@ -16,7 +17,8 @@ use App\Models\Event;
         </div>
     <?php } ?>
     <div class="row">
-        <?php foreach ($data as $event) { ?>
+        <?php foreach ($data['events'] as $event) {
+            $location = $data['locations'][$event->getMarkerId()];?>
             <div class="col-xl-3 col-md-4 col-sm-6 my-3 markerCard" data-author-id="<?= $event->getAuthorId() ?>">
                 <div class="card h-100">
                     <?php if ($event->getPhoto()) { ?>
@@ -34,6 +36,7 @@ use App\Models\Event;
                                 Koniec: <?= date("d. m. Y H:i", strtotime($event->getDateto())) ?>
                             <?php } ?>
                         </p>
+                        <p>Miesto konania: <a class="text-dark" href="?c=markers&lat=<?= $location->getLat() ?>&long=<?= $location->getLong() ?>"><?= $location->getTitle() ?></a></p>
                     </div>
                     <?php if ($auth->isLogged() && $event->getAuthorId() == $auth->getLoggedUserId()) { ?>
                         <div class="card-footer">
@@ -47,7 +50,3 @@ use App\Models\Event;
         <?php } ?>
     </div>
 </div>
-
-<script>
-
-</script>
