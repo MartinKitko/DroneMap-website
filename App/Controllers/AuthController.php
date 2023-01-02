@@ -80,22 +80,29 @@ class AuthController extends AControllerBase
     }
 
     /**
-     * Login a user
-     * @return \App\Core\Responses\RedirectResponse|\App\Core\Responses\ViewResponse
+     * @return \App\Core\Responses\ViewResponse
      */
     public function login(): Response
     {
-        $formData = $this->app->getRequest()->getPost();
-        $logged = null;
-        if (isset($formData['submit'])) {
-            $logged = $this->app->getAuth()->login($formData['login'], $formData['password']);
-            if ($logged) {
-                return $this->redirect('?c=markers');
-            }
-        }
+        return $this->html(
+            null,'login'
+        );
+    }
 
-        $data = ($logged === false ? ['message' => 'Zlý login alebo heslo!'] : []);
-        return $this->html($data);
+    /**
+     * Login a user
+     * @return \App\Core\Responses\JsonResponse
+     */
+    public function checkLogin() : Response
+    {
+        $login = $this->request()->getValue('username');
+        $password = $this->request()->getValue('password');
+
+        $logged = $this->app->getAuth()->login($login, $password);
+        if ($logged) {
+            return $this->json(['success' => true]);
+        }
+        return $this->json(['success' => false, 'message' => 'Zlý login alebo heslo!']);
     }
 
     /**

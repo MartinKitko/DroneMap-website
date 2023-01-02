@@ -41,8 +41,8 @@ async function checkUsername(usernameInput) {
             data: {username},
             dataType: 'json'
         });
-        if (response.hasOwnProperty('taken')) {
-            if (response.taken) {
+        if (response.hasOwnProperty('message')) {
+            if (response.message) {
                 $('#username-error').text('Zadané používateľské meno už niekto používa');
             } else {
                 $('#username-error').text('')
@@ -54,26 +54,24 @@ async function checkUsername(usernameInput) {
     checkErrors();
 }
 
-async function checkLogin(loginInput) {
-    const username = loginInput.val();
+async function checkLogin(username, password) {
+    const logErr = $('#login-error');
+    logErr.text('');
     try {
         const response = await $.ajax({
-            url: '?c=auth&a=checkUsername',
+            url: '?c=auth&a=checkLogin',
             method: 'POST',
-            data: {username},
+            data: {username, password},
             dataType: 'json'
         });
-        if (response.hasOwnProperty('taken')) {
-            if (username !== '' && response.taken) {
-                $('#login-error').text('');
-            } else {
-                $('#login-error').text('Zadané meno nie je registrované')
-            }
+        if (response.success) {
+            window.location.href = '?c=markers';
+        } else {
+            logErr.text(response.message);
         }
     } catch (error) {
         console.error(error);
     }
-    checkErrors();
 }
 
 async function checkEmail(emailInput) {
@@ -147,17 +145,8 @@ function setupRegisterListeners() {
     });
 }
 
-function setupLoginListener() {
-    $(document).ready(function () {
-        const loginInput = $('#login');
-        loginInput.on('keyup', function () {
-            checkLogin(loginInput);
-        });
-    });
-}
-
 function checkErrors() {
-    $('#submit').prop('disabled', $('#login-error').text() !== '' || $('#username-error').text() !== '' || $('#email-error').text() !== '' || $('#passwords-error').text() !== '');
+    $('#submit').prop('disabled', $('#username-error').text() !== '' || $('#email-error').text() !== '' || $('#passwords-error').text() !== '');
 }
 
 //list.view.php

@@ -30,15 +30,13 @@ class Authenticator implements IAuthenticator
     function login($login, $password): bool
     {
         $user = User::getAll("username = ?", [$login])[0] ?? null;
-        if ($user == null) {
-            throw new \Exception("Používateľ so zadaným menom neexistuje");
+        if ($user != null) {
+            if (password_verify($password, $user->getPasswordHash())) {
+                $_SESSION['user'] = $user;
+                return true;
+            }
         }
-        if (password_verify($password, $user->getPasswordHash())) {
-            $_SESSION['user'] = $user;
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     /**
