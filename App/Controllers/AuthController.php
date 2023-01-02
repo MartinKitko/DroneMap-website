@@ -149,22 +149,4 @@ class AuthController extends AControllerBase
 
         return new JsonResponse(['error' => 'Nezadaný žiaden email']);
     }
-
-    /**
-     * Check if the email is already taken
-     * @return \App\Core\Responses\JsonResponse
-     */
-    public function checkPasswords(): Response
-    {
-        if (isset($_POST['password']) and isset($_POST['password2'])) {
-            $password = htmlspecialchars(trim($_POST['password']), ENT_QUOTES);
-            if (strlen($password) < 8) {
-                return new JsonResponse(['tooShort' => true]);
-            }
-            $password2 = htmlspecialchars(trim($_POST['password2']), ENT_QUOTES);
-            return new JsonResponse(['same' => $password == $password2]);
-        }
-
-        return new JsonResponse(['error' => 'Nezadaný žiaden email']);
-    }
 }

@@ -46,6 +46,10 @@ class MarkersController extends AControllerBase
      */
     public function delete()
     {
+        $id = $this->request()->getValue('id');
+        if ($id == null) {
+            return $this->redirect('?c=markers&a=list');
+        }
         $marker = Marker::getOne($this->request()->getValue('id') * 1);
         if ($marker->getAuthorId() != $this->app->getAuth()->getLoggedUserId()) {
             return $this->redirect('?c=markers');
@@ -64,8 +68,12 @@ class MarkersController extends AControllerBase
      */
     public function edit()
     {
+        $id = $this->request()->getValue('id');
+        if ($id == null) {
+            return $this->redirect('?c=markers&a=list');
+        }
         return $this->html([
-            'marker' => Marker::getOne($this->request()->getValue('id') * 1)
+            'marker' => Marker::getOne($id * 1)
         ],
             'create.form'
         );
