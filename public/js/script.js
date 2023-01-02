@@ -1,20 +1,20 @@
 //create.form.view.php
 function countChars(countFrom, displayTo) {
-    document.getElementById(displayTo).textContent = document.getElementById(countFrom).value.length
+    document.getElementById(displayTo).textContent = document.getElementById(countFrom).value.length;
 }
 
 function setDefaultOption(option) {
     if (option === "") {
-        option = "red"
+        option = "red";
     }
-    $('#m_color').val(option)
+    $('#m_color').val(option);
 }
 
 async function deleteImage(controller, elementId) {
     if (confirm('Naozaj chcete odstrániť tento obrázok?')) {
         try {
             const response = await $.ajax({
-                url: '?c=' + controller +'&a=deletePhoto',
+                url: '?c=' + controller + '&a=deletePhoto',
                 method: 'POST',
                 data: {elementId},
                 dataType: 'json'
@@ -45,7 +45,7 @@ async function checkUsername(usernameInput) {
             if (response.message) {
                 $('#username-error').text('Zadané používateľské meno už niekto používa');
             } else {
-                $('#username-error').text('')
+                $('#username-error').text('');
             }
         }
     } catch (error) {
@@ -87,7 +87,7 @@ async function checkEmail(emailInput) {
             if (response.taken) {
                 $('#email-error').text('Zadaný email už niekto používa');
             } else {
-                $('#email-error').text('')
+                $('#email-error').text('');
             }
         }
         if (response.hasOwnProperty('notValid')) {
@@ -244,27 +244,27 @@ function setupStarListeners() {
 
 //gallery.view.php
 function lightbox() {
-    const lightbox = document.createElement('div')
-    lightbox.id = 'lightbox'
-    document.body.appendChild(lightbox)
+    const lightbox = document.createElement('div');
+    lightbox.id = 'lightbox';
+    document.body.appendChild(lightbox);
 
-    const images = document.querySelectorAll('img')
+    const images = document.querySelectorAll('img');
     images.forEach(image => {
         image.addEventListener('click', () => {
-            lightbox.classList.add('active')
-            const img = document.createElement('img')
-            img.src = image.src
+            lightbox.classList.add('active');
+            const img = document.createElement('img');
+            img.src = image.src;
             while (lightbox.firstChild) {
-                lightbox.removeChild(lightbox.firstChild)
+                lightbox.removeChild(lightbox.firstChild);
             }
-            lightbox.appendChild(img)
+            lightbox.appendChild(img);
         })
     })
 
     lightbox.addEventListener('click', e => {
         if (e.target !== e.currentTarget) {
-            return
+            return;
         }
-        lightbox.classList.remove('active')
+        lightbox.classList.remove('active');
     })
 }
