@@ -29,7 +29,8 @@ $_SESSION['lastOpened'] = 'list';
                     <?php } ?>
                     <div class="card-body">
                         <h5 class="card-title">
-                            <?= $marker->getTitle() ?>
+                            <a class="text-dark"
+                               href="?c=markers&lat=<?= $marker->getLat() ?>&long=<?= $marker->getLong() ?>"><?= $marker->getTitle() ?></a>
                         </h5>
                         <p class="card-text">
                             <?= $marker->getDescription() ?>
