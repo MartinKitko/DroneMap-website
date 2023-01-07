@@ -84,6 +84,9 @@ class AuthController extends AControllerBase
      */
     public function login(): Response
     {
+        if ($this->app->getAuth()->isLogged()) {
+            return $this->redirect("?c=home");
+        }
         return $this->html(
             null,'login'
         );
