@@ -41,8 +41,8 @@ async function checkUsername(usernameInput) {
             data: {username},
             dataType: 'json'
         });
-        if (response.hasOwnProperty('message')) {
-            if (response.message) {
+        if (response.hasOwnProperty('taken')) {
+            if (response.taken) {
                 $('#username-error').text('Zadané používateľské meno už niekto používa');
             } else {
                 $('#username-error').text('');
