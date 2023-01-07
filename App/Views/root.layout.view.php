@@ -86,7 +86,7 @@
 </div>
 
 <div class="text-center text-gray">
-    <p><br>Copyright © 2022 Martin Kitko</p>
+    <p><br>Copyright © 2023 Martin Kitko</p>
 </div>
 </body>
 </html>
