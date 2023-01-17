@@ -20,7 +20,7 @@ $_SESSION['lastOpened'] = 'list';
     <?php } ?>
     <div class="row">
         <?php
-        include "marker_cards.php";
+        include "App/Views/Markers/marker_cards.php";
         ?>
     </div>
 </div>

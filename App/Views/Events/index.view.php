@@ -18,7 +18,7 @@ use App\Models\Event;
     <?php } ?>
     <div class="row">
         <?php
-        include "App/Views/Markers/event_cards.php";
+        include "App/Views/Events/event_cards.php";
         ?>
     </div>
 </div>
