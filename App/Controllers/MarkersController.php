@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\Event;
 use App\Models\Marker;
 use App\Models\Rating;
 use Exception;
@@ -37,7 +38,7 @@ class MarkersController extends AControllerBase
     public function list(): Response
     {
         $markers = Marker::getAll();
-        return $this->html($markers);
+        return $this->html(["markers" => $markers]);
     }
 
     /**
@@ -197,6 +198,25 @@ class MarkersController extends AControllerBase
         $ratings = Rating::getAll("user_id = ?", [$user_id]);
         $data = ['ratings' => $ratings];
         return $this->json($data);
+    }
+
+    /**
+     * @return \App\Core\Responses\JsonResponse
+     * @throws Exception
+     */
+    public function posts() : Response
+    {
+        $userId = $this->app->getAuth()->getLoggedUserId();
+        if ($userId == null) {
+            throw new Exception("Chyba: pouzivatel nie je prihlaseny");
+        }
+        $markers = Marker::getAll("author_id = ?", [$userId]);
+        $events = Event::getAll("author_id = ?", [$userId]);
+        $locations = [];
+        foreach ($events as $event) {
+            $locations[$event->getMarkerId()] = Marker::getOne($event->getMarkerId());
+        }
+        return $this->html(['markers' => $markers, 'events' => $events, 'locations' => $locations], "posts");
     }
 
     /**
