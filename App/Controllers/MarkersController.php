@@ -254,12 +254,16 @@ class MarkersController extends AControllerBase
     /**
      * @param $marker
      * @return string|null
+     * @throws Exception
      */
     private function processUploadedFile(Marker $marker): ?string
     {
         $photo = $this->request()->getFiles()['photo'];
         if (!is_null($photo) && $photo['error'] == UPLOAD_ERR_OK) {
             $targetFile = "public/photos/" . time() . "_" . $photo['name'];
+            if (!getimagesize($photo["tmp_name"])) {
+                throw new Exception("Chyba: nahrany subor nie je obrazok");
+            }
             if (move_uploaded_file($photo["tmp_name"], $targetFile)) {
                 if ($marker->getId() && $marker->getPhoto()) {
                     unlink($marker->getPhoto());
