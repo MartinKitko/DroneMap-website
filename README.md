@@ -1,3 +1,3 @@
 # VAII-SemPraca2
 Webový portál pre nadšencov dronov a závodných koptér.
-Semestrálna práca z predmetu Vývoj aplikácií pre internet a intranet s použitím VAII frameworku.
+Umožňuje pridávanie lokalít na lietanie a udalostí (zrazov, závodov, súťaží) na mapu.
